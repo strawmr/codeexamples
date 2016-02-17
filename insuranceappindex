@@ -1,0 +1,374 @@
+<!DOCTYPE HTML>
+<html>
+    	<head>
+    		<meta charset="UTF-8">
+    		<title>Your Insurance Company</title>
+    		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"/>
+    		<meta name="description" content="This application is to help you with all your auto insurance needs." />
+    		<!--
+    			<link rel="shortcut icon" href="images/favicon.png">
+    			<link rel="apple-touch-icon" href="images/apple-touch-icon.png"> 
+    		-->
+    		<link href="jqueryMobile/jquery.mobile-1.4.5.css" rel="stylesheet">
+    		<link rel="stylesheet" href="css/main.css">    		
+    		<script type="text/javascript" src="js/custom.js"></script>
+    		<script>window.$ = window.jQuery = WLJQ;</script>
+    		<script src="jqueryMobile/jquery.mobile-1.4.5.js"></script> 	
+    		<script src="js/jquery.js"></script>
+    		<script src="js/claims.js"></script>
+			<script src="js/initOptions.js"></script>
+    		<script src="js/main.js"></script>
+    		<script src="js/messages.js"></script>
+    		<script src="sweetalerts/sweetalert.min.js"></script>
+    		<style type="text/css">
+    		@import url("sweetalerts/sweetalert.css")    		
+    		</style>    		
+    	</head>
+
+<body style="display: none;">
+    	 <div data-role="page">
+        	  <div data-role="header" data-theme="a">
+        		    <h1>Welcome YIC Member</h1>
+      		  </div><!-- /header -->
+        <div role="main" class="ui-content">
+            <h2 class="mc-text-center">Welcome!</h2>
+            <p class="mc-top-margin-1-5"><b>Existing Users</b></p>
+            <a href="sign-in.html" class="ui-btn ui-btn-b ui-corner-all">Sign In</a>
+            <p class="mc-top-margin-1-5"><b>Don't have an account?</b></p>
+            <a href="sign-up.html" class="ui-btn ui-btn-b ui-corner-all">Sign Up</a>
+            <p></p>
+        </div><!-- /content -->
+    </div><!-- /page -->
+    		
+    		<div data-role="page" id="home" data-theme="a">
+			<div data-role="header">
+			<div class="logo"></div>
+				<a href="#home" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>	
+				<h1>Your Insurance Company</h1>
+				<div data-role="navbar">
+				<ul>
+					<li><a href="#claims" class="ui-nodisc-icon ui-btn ui-icon-info ui-btn-icon-top ui-alt-icon">Claims</a></li>
+		            <li><a href="#repair" class="ui-nodisc-icon ui-btn ui-icon-location ui-btn-icon-top ui-alt-icon">Repair Locations</a></li>
+					<li><a href="#towing" class="ui-nodisc-icon ui-btn ui-icon-phone ui-btn-icon-top ui-alt-icon">Towing Companies</a></li>
+					<li><a href="#payment" class="ui-nodisc-icon ui-btn ui-icon-tag ui-btn-icon-top ui-alt-icon">Payment/Status</a></li>
+				</ul>
+				</div>
+			</div>
+					
+			
+		<div data-role="content">
+			<p>Your Insurance Company is the number one insurance provider in
+				the Western New York area.</p>
+			<p>With dozens of partnered repair centers as well as towing
+				companies, you're never on your own with YIC.</p>
+			<p>Choose your needs in the menu above, and we'll do the rest!</p>
+		</div>		
+		
+		<div data-role="footer">
+				<h4>©2015 YIC Inc.</h4>
+	    </div>
+		
+	</div>
+		
+			<div data-role="page" id="claims" data-theme="a">
+			<div data-role="header">
+				<a href="#home" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>	
+				<h1>Your Insurance Company</h1>
+				<div data-role="navbar">
+				<ul>
+					<li><a href="#claims" class="ui-nodisc-icon ui-btn ui-icon-info ui-btn-icon-top ui-alt-icon">Claims</a></li>
+		            <li><a href="#repair" class="ui-nodisc-icon ui-btn ui-icon-location ui-btn-icon-top ui-alt-icon">Repair Locations</a></li>
+					<li><a href="#towing" class="ui-nodisc-icon ui-btn ui-icon-phone ui-btn-icon-top ui-alt-icon">Towing Companies</a></li>
+					<li><a href="#payment" class="ui-nodisc-icon ui-btn ui-icon-tag ui-btn-icon-top ui-alt-icon">Payment/Status</a></li>
+				</ul>
+				</div>
+			</div>
+			<div data-role="content">
+			<p>Please fill out all forms to receive claim number</p>
+			<form id="claimform" action="" name="claimform">
+				<label for="text">Full Name:</label><input type="text" name="name" id="Name"> 
+				<label for="text">Vehicle:</label><input type="text" name="vehicle" id="Vehicle">
+				<label for="textarea">Details:</label><textarea id="Details"></textarea>
+				<input type="button" value="Create Claim Number" onClick="randomString();" >
+				<input type="text" name="randomfield" value="" id="ID">
+				&nbsp;
+				&nbsp;
+				<input type="submit" id="sub" value="Submit" onClick="claimConfirm();">
+				<input type="reset" value="Reset Button">  						
+			</form>
+			<span id="result"></span>			
+			</div>				
+		<div data-role="footer">
+				<h4>©2015 YIC Inc.</h4>
+			</div>
+			</div>
+			
+			<div data-role="page" id="repair" data-theme="a">
+			<div data-role="panel" id="allWorld"> 
+  			  <p>Phone number: 716-528-7483</p>    		   			  
+            <a href="#repair" data-rel="close" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-b ui-icon-delete ui-btn-icon-left">Close</a>
+            </div> 
+            <div data-role="panel" id="billys"> 
+             <p>Phone number: 716-330-5200</p>    		   			 
+    		<a href="#repair" data-rel="close" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-b ui-icon-delete ui-btn-icon-left">Close</a>
+  			</div> 
+  			<div data-role="panel" id="downtown">  			
+ 			  <p>Phone number: 716-578-1092</p>    		  			  
+            <a href="#repair" data-rel="close" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-b ui-icon-delete ui-btn-icon-left">Close</a>
+            </div> 
+            <div data-role="panel" id="derick">           
+  			 <p>Phone number: 716-872-0471</p>    		 		 
+    		<a href="#repair" data-rel="close" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-b ui-icon-delete ui-btn-icon-left">Close</a>
+  			</div> 
+  			<div data-role="panel" id="northside">   			  
+ 			  <p>Phone number: 716-528-7483</p>    		 			  
+            <a href="#repair" data-rel="close" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-b ui-icon-delete ui-btn-icon-left">Close</a>
+            </div> 
+            <div data-role="panel" id="proper">              
+  			 <p>Phone number: 716-330-5200</p>    		  			 
+    		<a href="#repair" data-rel="close" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-b ui-icon-delete ui-btn-icon-left">Close</a>
+  			</div> 
+  			<div data-role="panel" id="westside">  			 
+ 			  <p>Phone number: 716-528-5577</p>    		 			  
+            <a href="#repair" data-rel="close" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-b ui-icon-delete ui-btn-icon-left">Close</a>
+            </div> 
+            <div data-role="panel" id="willys"> 
+             <h2>Billy Smith</h2>
+  			 <p>Phone number: 716-867-0668</p>    					 
+    		<a href="#repair" data-rel="close" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-b ui-icon-delete ui-btn-icon-left">Close</a>
+  			</div> 
+			<div data-role="header">
+				<a href="#home" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>	
+				<h1>Your Insurance Company</h1>
+				<div data-role="navbar">
+				<ul>
+					<li><a href="#claims" class="ui-nodisc-icon ui-btn ui-icon-info ui-btn-icon-top ui-alt-icon">Claims</a></li>
+		            <li><a href="#repair" class="ui-nodisc-icon ui-btn ui-icon-location ui-btn-icon-top ui-alt-icon">Repair Locations</a></li>
+					<li><a href="#towing" class="ui-nodisc-icon ui-btn ui-icon-phone ui-btn-icon-top ui-alt-icon">Towing Companies</a></li>
+					<li><a href="#payment" class="ui-nodisc-icon ui-btn ui-icon-tag ui-btn-icon-top ui-alt-icon">Payment/Status</a></li>
+				</ul>
+				</div>
+			</div>
+			<div data-role="content">
+				<h2>Repair Centers</h2>
+    			<ul data-role="listview" data-autodividers="true" data-inset="true">
+      				<li><a href="#allWorld">All World Collision</a></li>
+     				<li><a href="#billys">Billy Mays Auto</a></li>
+     				<li><a href="#downtown">Downtown Brown Repair</a></li>
+     				<li><a href="#derick">Derick's Detail Shop</a></li>
+     				<li><a href="#northside">Northside Collision</a></li>
+     				<li><a href="#proper">Proper Auto</a></li>
+     				<li><a href="#westside">West Side Motors</a></li>
+     				<li><a href="#willys">Willy's</a></li>
+   				</ul>
+			</div>			
+			<div data-role="footer">
+				<h4>©2015 YIC Inc.</h4>
+			</div>
+			</div>
+    	
+    		<div data-role="page" id="towing" data-theme="a">			
+			<div data-role="panel" id="716"> 
+  			  <p>Phone number: 716-468-9810</p>    		     			  
+            <a href="#towing" data-rel="close" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-b ui-icon-delete ui-btn-icon-left">Close</a>
+            </div> 
+            <div data-role="panel" id="bigMark"> 
+             <p>Phone number: 716-983-9568</p>    		  			 
+    		<a href="#towing" data-rel="close" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-b ui-icon-delete ui-btn-icon-left">Close</a>
+  			</div> 
+  			<div data-role="panel" id="manny">  			
+ 			  <p>Phone number: 716-444-1247</p>    		 			  
+            <a href="#towing" data-rel="close" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-b ui-icon-delete ui-btn-icon-left">Close</a>
+            </div> 
+            <div data-role="panel" id="southtown">           
+  			 <p>Phone number: 716-875-4505</p>    		 		 
+    		<a href="#towing" data-rel="close" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-b ui-icon-delete ui-btn-icon-left">Close</a>
+  			</div>   		
+			<div data-role="header">
+				<a href="#home" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>	
+				<h1>Your Insurance Company</h1>
+				<div data-role="navbar">
+				<ul>
+					<li><a href="#claims" class="ui-nodisc-icon ui-btn ui-icon-info ui-btn-icon-top ui-alt-icon">Claims</a></li>
+		            <li><a href="#repair" class="ui-nodisc-icon ui-btn ui-icon-location ui-btn-icon-top ui-alt-icon">Repair Locations</a></li>
+					<li><a href="#towing" class="ui-nodisc-icon ui-btn ui-icon-phone ui-btn-icon-top ui-alt-icon">Towing Companies</a></li>
+					<li><a href="#payment" class="ui-nodisc-icon ui-btn ui-icon-tag ui-btn-icon-top ui-alt-icon">Payment/Status</a></li>
+				</ul>
+				</div>
+			</div>
+			<div data-role="content">
+			<h2>Towing Companies</h2>
+    			<ul data-role="listview" data-autodividers="true" data-inset="true">
+      				<li><a href="#716">716 Towing</a></li>
+     				<li><a href="#bigMark">Big Mark's</a></li>
+     				<li><a href="#manny">Manny's Towing and Tire</a></li>
+     				<li><a href="#southtown">Southtown's Towing</a></li>     				
+   				</ul>			
+			</div>		
+		
+		<div data-role="footer">
+				<h4>©2015 YIC Inc.</h4>
+			</div>
+			</div>
+			
+			<div data-role="page" id="payment" data-theme="a">
+			<div data-role="header">
+				<a href="#home" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>	
+				<h1>Your Insurance Company</h1>
+				<div data-role="navbar" style="font-family: 8 Bit Party">
+				<ul>
+					<li><a href="#claims" class="ui-nodisc-icon ui-btn ui-icon-info ui-btn-icon-top ui-alt-icon">Claims</a></li>
+		            <li><a href="#repair" class="ui-nodisc-icon ui-btn ui-icon-location ui-btn-icon-top ui-alt-icon">Repair Locations</a></li>
+					<li><a href="#towing" class="ui-nodisc-icon ui-btn ui-icon-phone ui-btn-icon-top ui-alt-icon">Towing Companies</a></li>
+					<li><a href="#payment" class="ui-nodisc-icon ui-btn ui-icon-tag ui-btn-icon-top ui-alt-icon">Payment/Status</a></li>
+				</ul>
+				</div>
+			</div>
+			<div data-role="content">
+				<form id="form0" action="">
+				<label for="Card">Card Type</label>
+       				 <select name="card" id="card">
+       				    <option value="s">Select</option>
+         				<option value="v">Visa</option>
+        				<option value="m">Mastercard</option>
+          				<option value="d">Discover</option>
+          				<option value="a">American Express</option>
+          			</select> 
+          		<label for="text0">Name on Card:</label><input type="text" name="text0" id="text0"> 
+          		<label for="text2">Card Number:</label><input type="text" name="text2" id="text2">
+          		<label for="text1">Expiration Date:</label><input type="text" name="text1" id="text1">
+           		<input type="submit" value="Submit"  onclick="Payment()">
+				<input type="reset" value="Reset Button">   
+				</form>
+				<a href="#" data-role="button" id="button" onclick="repairStatus()">Repair Status</a>
+			</div>
+			<div data-role="footer">
+				<h4>©2015 YIC Inc.</h4>
+			</div>
+			</div>			
+			
+			
+			
+				
+		
+
+			
+    	<script>    	
+    	/*Javascript functions*/
+		
+    	function viewClaims(){  
+    	var claimID = "cvGI5bTr5R";  	
+    	var invocationData = {
+        adapter : 'insuranceclaims',
+        procedure : 'getClaims',
+        parameters : [claimID]
+  		};
+ 		var options =  
+  		{
+     	 onSuccess : GetDataSuccess,
+      	 onFailure : GetDataFailed,
+     	 timeout : 30000
+  		};
+  		WL.Client.invokeProcedure(invocationData, options);
+  		}
+    	
+    	function GetDataSuccess(result){
+	 
+			alert(JSON.stringify(result.invocationResult.resultSet));
+		  
+		}
+		function GetDataFailed(result){
+	 
+			
+ 			WL.SimpleDialog.show("There was a problem with the app, we're sorry","", [ {
+  			text : 'OK',
+  			handler : simpleDialogButton1Click
+ 			}]);
+	  
+		}		
+    	</script>
+    	
+    	<script>
+    	
+		function claimConfirm() {		
+				
+    		
+    	var invocationData = {
+        adapter : 'insuranceclaims',
+        procedure : 'insertClaimNo',
+        parameters : [$('#ID').val(),$('#Name').val(),$('#Vehicle').val(),$('#Details').val()]
+  		};
+ 		var options =  
+  		{
+     	 onSuccess : InsertDataSuccess,
+      	 onFailure : InsertDataFailed,
+     	 timeout : 30000
+  		};
+    	WL.Client.invokeProcedure(invocationData, options);	
+    		swal("Claim filed!", "Please keep the claim number for records", "success")
+    		
+			history.go(-1);
+			
+				}	
+		/*function InsertDataSuccess(result){
+	 
+			 alert("Success");
+		  
+		}
+		function InsertDataFailed(result){
+	 
+			 alert("Failure");
+	  
+		}*/		
+		</script>
+		<script>
+ 		function randomString() {
+			var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+			var string_length = 10;
+			var randomstring = '';
+		for (var i=0; i<string_length; i++) {
+			var rnum = Math.floor(Math.random() * chars.length);
+			randomstring += chars.substring(rnum,rnum+1);
+		}
+		document.claimform.randomfield.value = randomstring;   	   		
+   	    }  	    
+ 		</script>
+		
+		<script>
+		function repairStatus() {
+			var today, someday, text;	
+			today = new Date();
+			someday = new Date();
+			someday.setFullYear(2015, 11, 1);
+
+		if (someday > today) {
+   			text = "Your repairs are not ready.";}
+
+		else {
+  			 text = "Your repairs are ready.";}
+   
+   		 var claim = prompt("Please enter your claim number:");
+    		if (claim != null) {
+        	swal(text, "Please check back later.", "error");  }
+		}
+		
+		
+	
+	//$.getScript(path + "js/payment.js");
+	function Payment(){
+	   var x;
+	   var y = confirm("Are you sure?");
+	   
+	   if (y == true) {
+	     x = alert('Payment Confirmed');
+	    }
+	   else {
+	     x = alert('Payment Cancelled');
+	   } 
+	  history.go(-1); 
+	   
+	}
+	   </script>	
+		
+    	</body>
+</html>
