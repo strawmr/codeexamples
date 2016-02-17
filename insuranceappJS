@@ -1,0 +1,46 @@
+/*
+ *  Licensed Materials - Property of IBM
+ *  5725-I43 (C) Copyright IBM Corp. 2011, 2013. All Rights Reserved.
+ *  US Government Users Restricted Rights - Use, duplication or
+ *  disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+ */
+
+/************************************************************************
+ * Implementation code for procedure - 'procedure1'
+ *
+ *
+ * @return - invocationResult
+ */
+ 
+var insertClaimId = WL.Server.createSQLStatement("insert into claims (ID,Name,Vehicle,Details) values (?,?,?,?);");
+var gatherClaims = WL.Server.createSQLStatement("select * from claims where ID = ?");
+
+function insertClaimNo(ID,Name,Vehicle,Details) {
+	 return WL.Server.invokeSQLStatement({
+	  preparedStatement : insertClaimId,
+	  parameters : [ID,Name,Vehicle,Details]
+	 });
+	}
+
+function getClaims(ID) {
+	 return WL.Server.invokeSQLStatement({
+	  preparedStatement : gatherClaims,
+	  parameters : [ID]
+	 });
+	}
+
+/************************************************************************
+ * Implementation code for procedure - 'procedure2'
+ *
+ *
+ * @return - invocationResult
+ */
+ 
+function getClaimsResult(param) {
+	return WL.Server.invokeSQLStoredProcedure({
+		procedure : "storedProcedure2",
+		parameters : [param]
+	});
+}
+
+
