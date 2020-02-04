@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8"/>
+	<title>Cost Estimate Tool</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="css/extra.css"/>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/modernizr.custom.24530.js"></script>
+</head>
+<body>
+<section align="center">
+  <div>
+    <h2>Choose your material</h2>
+    <input type="radio" name="service" id="s0" value="0" checked>
+    <label for="s0">Concrete/Epoxy</label><br>
+    <input type="radio" name="service" id="s1" value="1">
+    <label for="s1">Quartz</label><br>
+    <input type="radio" name="service" id="s2" value="2">
+    <label for="s2">Granite</label>
+  </div>
+  <div>
+    <h2>How many square feet</h2>
+    <input type="number" id="linearfeet" min="1" max="1000000">
+  </div>
+  <div class="estimate">
+    <h2>Your cost estimate</h2>
+    <h3 id="costTotal"></h3>
+  </div>
+    <p><em><strong>Please note:</strong></em> This is just a rough estimate based on average pricing. You're exact cost may vary depending on job requirements.</p>
+</section>                      
+                        
+                   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/accounting.js/0.4.1/accounting.min.js"></script>  
+<script type="text/javascript" src="js/calculator.js"></script>
+
+</body>
+</html>

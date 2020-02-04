@@ -1,0 +1,97 @@
+
+/*Cost Estimate*/
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    color: #373d3f;
+font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+background-color: #fff;
+}
+
+section {
+display: block;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Montserrat", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    color: #333333;
+    letter-spacing: -0.5px;
+}
+h2, .h2 {
+    font-size: 30px;
+line-height: 1.1;
+}
+
+#calcform {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+input[type=number] {
+  border: solid;
+  font-size: 1.5em;
+  padding: 6px;
+  width: 50%;
+}
+input[type=number]:focus {
+  box-shadow: 4px 4px 20px rgba(0,0,0,1);
+}
+section {  
+  width: 100%;
+  margin: 0 auto;
+  padding: .5em 1.5em;
+}
+label {
+  font-size: 1.1em;
+  line-height: 3em;
+  width: 60%;
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+input[type=radio] {
+  visibility: hidden;
+  margin: 4px 0 0;  
+  line-height: normal;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+input[type=radio] + label {
+  border-radius: 5px;
+  background-color: rgba(0,0,0,0.2);
+  margin-left: -28px;
+}
+
+
+label:hover {
+   cursor: pointer;
+}
+
+input[type=radio]:checked + label {
+  background-color: #2b73b3;
+color: white;
+}
+
+#costTotal {
+
+}
+
+@media (min-width: 500px) {
+  body {
+    font-size: 1.2em;
+  }
+  section {
+    width: 500px;
+  }
+}
+
+
+
+
