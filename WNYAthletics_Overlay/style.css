@@ -1,0 +1,276 @@
+body {  
+  letter-spacing: 0px;
+  color: #666;
+  padding: 0px;
+  margin: 0;
+  overflow-x: hidden;
+  z-index: 0;
+}
+a:hover {
+    color: #797979;
+    text-decoration: none;
+}
+img {
+    max-width: 100%;
+    object-fit: cover;
+}
+button {
+    box-shadow: none !important;
+}
+.main{
+    height: 98vh;
+}
+.wrapper{
+	width: 1400px;
+	margin: 0 auto;
+    height: 75vh;
+}
+.header{
+	width: 1270px;
+	margin: 0 auto;
+	background: #000;
+	height: 75px;
+}
+.wny {
+    float: left;
+    vertical-align: middle;
+    padding: 22px 10px;
+}
+.wny img {
+    width: 70px;
+}
+.timon-main{
+	float: left;
+}
+.timon-area{	
+    overflow: hidden;
+    width: 470px;    
+    height: 75px;
+	background: #2b523c; /* Old browsers */
+	background: -moz-linear-gradient(top,  #2b523c 47%, #0c331d 56%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top,  #2b523c 47%,#0c331d 56%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom,  #2b523c 47%,#0c331d 56%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b523c', endColorstr='#0c331d',GradientType=0 ); /* IE6-9 */
+}
+.timon-image-area{
+	float: left;
+	width: 377px;
+	background: url('./images/tiger.png') no-repeat;
+	background-size: cover;
+}
+.timon-image-shadow{
+	opacity: 0.8;
+    float: left;
+    width: 377px;
+    height: 76px;
+	background: #2b523c; /* Old browsers */
+	background: -moz-linear-gradient(top,  #2b523c 47%, #0c331d 56%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top,  #2b523c 47%,#0c331d 56%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom,  #2b523c 47%,#0c331d 56%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b523c', endColorstr='#0c331d',GradientType=0 ); /* IE6-9 */
+}
+.timon-title {
+    position: absolute;
+}
+.timon-title h1 {
+    font-size: 50px;
+    font-family: "Open Sans Condensed";
+    color: #fff;
+    font-weight: bold;
+    padding: 4px 12px;
+    margin: 0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.timon-number {
+    float: left;
+    padding: 0 20px;
+}
+.timon-number h1 {
+    font-size: 50px;
+    font-family: "Open Sans Condensed";
+    color: #fff;
+    font-weight: bold;
+    padding: 4px 12px;
+    margin: 0;
+    letter-spacing: 1px;
+}
+.canisius-main{
+	float: left;
+}
+.canisius-area{	
+    overflow: hidden;
+    width: 470px;     
+    height: 75px;
+	background: #1f364d; /* Old browsers */
+	background: -moz-linear-gradient(top,  #1f364d 47%, #00172e 56%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top,  #1f364d 47%,#00172e 56%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom,  #1f364d 47%,#00172e 56%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1f364d', endColorstr='#00172e',GradientType=0 ); /* IE6-9 */
+}
+.canisius-image-area{
+	float: left;
+	width: 377px;
+	background: url('./images/canisius.png') no-repeat;
+	background-size: cover;
+}
+.canisius-image-shadow{
+	opacity: 0.8;
+    float: left;
+    width: 377px;
+    height: 76px;
+	background: #1f364d; /* Old browsers */
+	background: -moz-linear-gradient(top,  #1f364d 47%, #00172e 56%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top,  #1f364d 47%,#00172e 56%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom,  #1f364d 47%,#00172e 56%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1f364d', endColorstr='#00172e',GradientType=0 ); /* IE6-9 */
+}
+.canisius-title {
+    position: absolute;
+}
+.canisius-title h1 {
+    font-size: 50px;
+    font-family: "Open Sans Condensed";
+    color: #fff;
+    font-weight: bold;
+    padding: 4px 12px;
+    margin: 0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.canisius-number {
+    float: left;
+    padding: 0 20px;
+}
+.canisius-number h1 {
+    font-size: 50px;
+    font-family: "Open Sans Condensed";
+    color: #fff;
+    font-weight: bold;
+    padding: 4px 12px;
+    margin: 0;
+    letter-spacing: 1px;
+}
+.timon-play-bg{
+	background: #14542f;
+}
+.canisius-play-bg{
+	background: #001e3c;
+}
+.power-play{	
+	width: 377px;
+}
+.power-play h2 {
+	font-size: 26px;
+    margin: 0;
+    padding: 0px 12px;
+    font-family: "Open Sans Condensed";
+    color: #fff;
+    font-weight: bold;  
+    text-transform: uppercase;
+}
+.power-play span.title {
+    margin: 0 12px 0 0;
+}
+.time-area .time h1{
+	font-size: 50px;
+    font-family: "Open Sans Condensed";
+    color: #fff;
+    font-weight: bold;
+    padding: 4px 12px;
+    margin: 0;
+    letter-spacing: 1px;
+}
+.time-area .time h1 span {
+    margin: 0 12px;
+}
+.time-area {
+    float: left;
+    width: 240px;
+}
+.west-area {
+    width: 240px;
+    padding: 26px 0;
+}
+.west-area img {
+    width: 200px;
+    margin: 0 auto;
+    display: block;
+}
+.sponsor {
+    background: #000;
+}
+.sponsor h3{
+    font-family: "Open Sans Condensed";
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+}
+.player-name{    
+    position: absolute;    
+    width: 470px;    
+    height: 75px;
+    border: 2px solid #c7b783;
+    background: #2e5f43; /* Old browsers */
+    background: -moz-linear-gradient(top,  #2e5f43 47%, #0f4124 56%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #2e5f43 47%,#0f4124 56%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #2e5f43 47%,#0f4124 56%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2e5f43', endColorstr='#0f4124',GradientType=0 ); /* IE6-9 */
+}
+.tiger-logo {
+    position: absolute;
+    width: 146px;
+    left: -26%;
+    bottom: 0;
+    top: -46%;
+    float: left;
+}
+.bottom-section {
+    width: 360px;
+    margin: 0 auto;
+    height: 120px;
+}
+.player-content h1{
+    font-size: 35px;
+    font-family: "Open Sans Condensed";
+    color: #fff;
+    font-weight: bold;
+    padding: 4px 12px;
+    margin: 0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.player-content {
+    padding: 10px 20px 10px 33px;
+}
+.player-content h1 span.plname {
+    float: right;
+    padding: 0 26px 0 0;
+}
+footer.footer-area {
+    background: #1d1d1d;
+    overflow: hidden;
+}
+.score-left {
+    float: left;
+    background: #000;
+    padding: 0 60px;
+}
+.score-left h3{
+    font-size: 22px;
+    font-family: "Open Sans Condensed";
+    color: #fff;
+    font-weight: bold;
+    padding: 2px 12px;
+    margin: 0;    
+    text-transform: uppercase;
+}
+.wny-right {
+    float: right;
+    background: #000;
+    padding: 2px 60px;
+}
+.wny-right img {
+    width: 140px;
+}
