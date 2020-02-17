@@ -1,0 +1,29 @@
+{
+  "customers": [
+    {
+      "id": 1,
+      "firstname": "Monty",
+      "lastname": "Python"
+    },
+    {
+      "id": 2,
+      "firstname": "George",
+      "lastname": "Carlin"
+    },
+    {
+      "id": 3,
+      "firstname": "Andy",
+      "lastname": "Kaufman"
+    },
+    {
+      "firstname": "Jim",
+      "lastname": "Carrey",
+      "id": 4
+    },
+    {
+      "firstname": "Mitch",
+      "lastname": "Hedberg",
+      "id": 5
+    }
+  ]
+}
