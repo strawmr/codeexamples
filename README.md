@@ -3,12 +3,12 @@ A small portfolio of some projects.
 
 
 Languages used include:
-   HTML
-   CSS 
-   Javascript
-   JQuery
-   Typescript
+   * HTML
+   * CSS 
+   * Javascript
+   * JQuery
+   * Typescript
 
 Frameworks used include:
-   Bootstrap
-   Angular 5
+   * Bootstrap
+   * Angular 5
