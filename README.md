@@ -9,7 +9,7 @@ Websites I've built/helped build:
    * https://nysmokefree.com
         * Responsible for front-end development. Worked closely with designer on the look and feel. Intergrated TipueSearch to perform full website search function without the need for backend database. 
    * https://www.poxycrete.com
-         * Responsible for full design and development. Built the basic cost estimator (included in the above repository) for client.
+        * Responsible for full design and development. Built the basic cost estimator (included in the above repository) for client.
 
 Languages used include:
    * HTML
