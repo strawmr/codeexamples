@@ -5,7 +5,7 @@ Websites I've built/helped build:
    * http://circuitclinical.com
       * Responsible for full design and development. Utitlized CouchCMS for Press page
    * https://trialscout.com
-       * Responsible for front-end development. Worked with/Managed team of developers for overall product.
+       * Responsible for front-end development. Worked with/Managed team of developers for overall product. Largest undertaking during time there was overhaul of the profile pages for research centers.
    * https://nysmokefree.com
         * Responsible for front-end development. Worked closely with designer on the look and feel. Intergrated TipueSearch to perform full website search function without the need for backend database. 
    * https://www.poxycrete.com
