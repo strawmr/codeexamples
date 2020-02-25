@@ -21,3 +21,4 @@ Languages used include:
 Frameworks used include:
    * Bootstrap
    * Angular 5
+   * .NET 4.6 (TrialScout)
