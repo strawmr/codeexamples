@@ -1,5 +1,5 @@
 # Code Examples 
-A small portfolio of some projects.
+A small portfolio of some projects (MORE PROJECTS COMING SOON).
 
 Websites I've built/helped build:
    * http://circuitclinical.com
