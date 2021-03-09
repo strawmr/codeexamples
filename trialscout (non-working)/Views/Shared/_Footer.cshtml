@@ -1,0 +1,143 @@
+﻿
+@using System.Configuration;
+@using System.Threading;
+@using TrialScout.Web.Localization
+<footer>
+    <div class="container trsc-footer-container mx-auto">
+        <div class="row" id="footerCitations" style="display: none;">
+            <div class="col-md-12">
+                <span class="small" style="display: inline-block;">Citations:</span><br />
+                <span class="small">1.	Harris Interactive. 2001. Misconceptions and lack of awareness greatly reduce recruitment for cancer clinical trials. Health Care News 1(3). </span>
+                <a href="https://www.nih.gov/health-information/nih-clinical-research-trials-you/need-awareness-clinical-research" class="small trsc-home-citation">https://www.nih.gov/health-information/nih-clinical-research-trials-you/need-awareness-clinical-research</a><br />
+                <span class="small">2.	CISCRP. 2013 Perceptions & Insights Study – Report on Study Particpant Experiences. 2013. </span>
+                <a href="https://www.ciscrp.org/download/2013-perceptions-insights-study-study-participant-experiences/" class="small trsc-home-citation">https://www.ciscrp.org/download/2013-perceptions-insights-study-study-participant-experiences/</a><br />
+                <span class="small">3.	Fenton L, Rigney M, LICSW, Herbst, R. Clinical trial awareness, attitudes, and participation among patients with cancer and oncologists. 2006. </span>
+                <a href="http://patientperceptions.lillycoi.com/Clinical_Trial_Awareness_Article.pdf" class="small trsc-home-citation">http://patientperceptions.lillycoi.com/Clinical_Trial_Awareness_Article.pdf</a><br />
+            </div>
+        </div>
+        <div class="row trsc-footer-links">
+            <div class="col-md-3">
+                <h6>For Visitors</h6>
+                <p>@Html.ActionLink(@Resources.FindAClinicalTrialLink, "FindClinicalTrial", "Home")</p>
+                <p>@Html.ActionLink(@Resources.LookUpAResearchCenterLink, "LookUpResearchCenter", "Home")</p>
+                <p>@Html.ActionLink(Resources.RateAResearchCenterLink,"Index","Ratings/RateResearchCenter")</p>
+                <p><a href="~/ClinicalTrialsLandscape">@Resources.ClinicalTrialsLandScapeLink</a></p>
+                <p><a href="~/HiddenGems">Clinical Trial Hidden Gems</a></p>
+                @*<p><a href="~/TheNest">Education</a></p>*@
+            </div>
+            <div class="col-md-3">
+                <h6>For Research Sites</h6>
+                <p><a href="https://blog.trialscout.com/clinical-research-sites">Business Partners</a></p>
+                <p><a href="https://info.trialscout.com/join-trialscout-today">For Research Centers</a></p>
+                <p><a href="~/Top50Hospitals">Top 50 Hospitals</a></p>
+            </div>
+            <div class="col-md-3">
+                <h6>The Nest</h6>
+                <p><a href="~/TheNest/FAQs">FAQs</a></p>
+                <p><a href="~/TheNest/ClinicalResearch101">Clinical Research 101</a></p>
+                <p><a href="~/TheNest/Definitions">Definitions</a></p>
+                @*<p><a href="~/TheNest/Testimonials">Testimonials</a></p>*@
+                <p><a href="https://blog.trialscout.com/clinical-trials-patients">Blog</a></p>
+            </div>
+            <div class="col-md-3">
+                <h6>Company</h6>
+                <p><a href="~/Home/OurStory">Our Story</a></p>
+                <p><a href="~/Resources">Resources</a></p>
+                <p><a href="http://blog.trialscout.com/press">Press</a></p>
+                <p><a href="~/Home/ContactUs">Contact Us</a></p>
+            </div>
+        </div>
+        <div class="row">
+            @*<div class="col-12">
+            <img src="~/Content/images/socials-01.svg" class="float-right trsc-footer-social-icons" />
+        </div>*@
+            @{ 
+    var routeValues = this.ViewContext.RouteData.Values;
+    var controller = routeValues["controller"] as string;
+    var action = routeValues["action"] as string;
+    var researchCenterName = routeValues["name"] as string;
+    var alias = routeValues["alias"] as string;
+            }
+            <div class="col-md-6">
+                @* LANGUAGE SWITCHING *@
+                @*<span>
+                    @foreach (string lang in ConfigurationManager.AppSettings["SupportedCultures"].Split(','))
+                    {
+                        @Html.ActionLink(Languages.GetLanguageValue(lang) + " | ", action, controller, new { culture = lang }, new { @style = Thread.CurrentThread.CurrentCulture.Name == lang ? "font-weight:bold;" : "" })
+                    }
+                </span>*@
+
+                @if (!string.IsNullOrEmpty(researchCenterName))
+                {
+                    <span>
+                        @foreach (string lang in ConfigurationManager.AppSettings["SupportedCultures"].Split(','))
+                        {
+
+                            @Html.ActionLink(Languages.GetLanguageValue(lang) + " | ", action, controller, new { culture = lang, name = researchCenterName }, new { @style = Thread.CurrentThread.CurrentCulture.Name == lang ? "font-weight:bold;" : ""})
+                        }
+
+                    </span>
+                }
+
+                @if (!string.IsNullOrEmpty(alias))
+                {
+                    <span>
+                        @foreach (string lang in ConfigurationManager.AppSettings["SupportedCultures"].Split(','))
+                        {
+
+                            @Html.ActionLink(Languages.GetLanguageValue(lang) + " | ", action, controller, new { culture = lang, alias = alias }, new { @style = Thread.CurrentThread.CurrentCulture.Name == lang ? "font-weight:bold;" : "" })
+                        }
+
+                    </span>
+                }
+
+                @if (string.IsNullOrEmpty(alias) && string.IsNullOrEmpty(researchCenterName))
+                {
+                    <span>
+                        @foreach (string lang in ConfigurationManager.AppSettings["SupportedCultures"].Split(','))
+                        {
+
+                            @Html.ActionLink(Languages.GetLanguageValue(lang) + " | ", action, controller, new { culture = lang }, new { @style = Thread.CurrentThread.CurrentCulture.Name == lang ? "font-weight:bold;" : ""})
+                        }
+                    </span>
+
+                }
+
+
+            </div>
+            <div class="col-md-6">
+                <div class="trsc-footer-social-icons">
+                    <div>
+                        <a href="https://www.facebook.com/trialscout/" target="_blank">
+                            <img src="~/Content/images/icons/facebook.svg" />
+                        </a>
+                        @*<a href="https://twitter.com/TrialScout" target="_blank">
+                        <img src="~/Content/images/icons/twitter.svg" />
+                    </a>*@
+                        <a href="https://instagram.com/TrialScout" target="_blank">
+                            <img src="~/Content/images/icons/instagram.svg" />
+                        </a>
+                        <a href="https://www.linkedin.com/company/trialscout/" target="_blank">
+                            <img src="~/Content/images/icons/linkedin.svg" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <a href="~/">
+                    <img src="~/Content/images/FinNoTagTS.svg" class="img-fluid" />
+                </a>
+            </div>
+            <div class="col-md-9">
+                <div class="float-right">
+                    <p class="trsc-footer-copyright">&copy; @DateTime.Now.Year TrialScout. All Rights Reserved.  |  <a href="~/Home/PrivacyPolicy">Privacy Policy</a>  |  <a href="~/Home/Transparency">Transparency</a>  |  <a href="~/Home/UserAgreement">User Agreement</a></p>
+                    <p class="trsc-footer-notices">Third party materials included herein protected under copyright law.<br /> Use of this website and any information contained herein is governed by the TrialScout User Agreement</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+

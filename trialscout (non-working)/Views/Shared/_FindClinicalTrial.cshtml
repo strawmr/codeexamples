@@ -1,0 +1,19 @@
+﻿<form method="GET" action="/search" autocomplete="off">
+    <input type="hidden" name="proximity" value="50" />
+    <div class="row">
+        <div class="col-12 text-center twitter-typeahead">
+            <input type="text" name="location" id="location" class="form-control" placeholder="@Resources.FindTrialLocationInputPlaceholder" autocomplete="off" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 text-center twitter-typeahead" id="scrollable-dropdown-menu">
+            <input type="text" name="condition" id="condition" class="form-control" placeholder="@Resources.FindTrialConditionInputPlaceholder" autocomplete="off" />
+        </div>
+        <div class="col-md-4 text-center">
+            <input id="findTrialButton" type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    </div>
+    <div class="row d-xs-block d-md-none">
+        <div class="col"><hr class="trsc-hr" /></div>
+    </div>
+</form>

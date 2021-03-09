@@ -1,0 +1,73 @@
+﻿@model TrialScout.Web.ViewModels.ContactUsViewModel
+@{
+    ViewBag.Title = "Contact Us";
+}
+
+@section metatags{
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+}
+@Html.MvcSiteMap().SiteMapPath("BootstrapSiteMapPathHelperModel")
+<h2 class="text-center">Contact Us</h2>
+
+<div class="container">
+    <p class="text-center" id="contact-form-text">TrialScout improves rapidly from the feedback we receive from our visitors, and we would love to hear from you. Please use the form below to let us know your thoughts, opinions, suggestions, or comments, and we'll get back to you as soon as we can.</p>
+</div>
+
+@using (Html.BeginForm("ContactUs", "Home", FormMethod.Post, new { @class = "trsc-contact-form" }))
+{
+
+
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col text-center">
+            @Html.TextBoxFor(model => model.ContactReason, new { @class = "form-control", placeholder = "Contact Reason" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col text-center">
+            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", placeholder = "First Name" })
+            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col text-center">
+            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", placeholder = "Last Name" })
+            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col text-center">
+            @Html.TextBoxFor(model => model.EmailAddress, new { @class = "form-control", placeholder = "Email Address" })
+            @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col text-center">
+            @Html.TextBoxFor(model => model.Subject, new { @class = "form-control", placeholder = "Subject" })
+            @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col text-center">
+            @Html.TextAreaFor(model => model.Message, new { @class = "form-control", placeholder = "Message", @rows = 8 })
+            @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 text-center">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+}
+
+@section scripts {
+    <script src="~/Scripts/ContactUs.js"></script>
+}

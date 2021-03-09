@@ -1,0 +1,198 @@
+﻿@model TrialScout.Web.ViewModels.EnhancedQuestionsViewModel
+@{
+    ViewBag.Title = "Enhanced Research Center Rating";
+    Layout = "~/Views/Shared/_LayoutContentPages.cshtml";
+}
+<style>
+    .text-danger {
+        color: #dc3545;
+    }
+</style>
+
+@using (Html.BeginForm("enhancedratingquestions", "enhancedrating", FormMethod.Post, new { @class = "trsc-ratings-form enhanced-survey" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.RatingId)
+
+    <div class="row">
+        <div class="col-12 text-center">
+            <h3>Only a few questions left!</h3>
+            @*<h6>The more you share about your experience, the more you help.</h6>*@
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <p class="enhanced-q-text">Based on your visit today, how likely are you to return for your next visit?</p>
+        </div>
+        <div class="col-12">
+            <div class="enhanced_radio enhancedQOne">
+                <input type="text" id="enhancedQOne" name="enhancedQOne" class="d-none" />
+                <div class="starPoly emptyRating radio-container" id="eq1Star1">
+                    <input id="eq1opt1" type="radio" name="enhanced_one" value="vu">
+                    <label for="eq1opt1">Very Unlikely</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="eq1Star2">
+                    <input id="eq1opt2" type="radio" name="enhanced_one" value="u">
+                    <label for="eq1opt2">Unlikely</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="eq1Star3">
+                    <input id="eq1opt3" type="radio" name="enhanced_one" value="sl">
+                    <label for="eq1opt3">Somewhat Likely</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="eq1Star4">
+                    <input id="eq1opt4" type="radio" name="enhanced_one" value="l">
+                    <label for="eq1opt4">Likely</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="eq1Star5">
+                    <input id="eq1opt5" type="radio" name="enhanced_one" value="vl">
+                    <label for="eq1opt5">Very Likely</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-12">
+            <p class="enhanced-q-text">When I left the research center, I clearly undersood the purpose of the clinical trial.</p>
+        </div>
+        <div class="col-12">
+            <div class="enhanced_radio enhancedQTwo">
+                <input type="text" id="enhancedQTwo" name="enhancedQTwo" class="d-none" />
+                <div class="starPoly emptyRating radio-container" id="eq2Star1">
+                    <input id="eq2opt1" type="radio" name="enhanced_two" value="vu">
+                    <label for="eq2opt1">Strongly Disagree</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="eq2Star2">
+                    <input id="eq2opt2" type="radio" name="enhanced_two" value="u">
+                    <label for="eq2opt2">Disagree</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="eq2Star3">
+                    <input id="eq2opt3" type="radio" name="enhanced_two" value="sl">
+                    <label for="eq2opt3">Neutral</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="eq2Star4">
+                    <input id="eq2opt4" type="radio" name="enhanced_two" value="l">
+                    <label for="eq2opt4">Agree</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="eq2Star5">
+                    <input id="eq2opt5" type="radio" name="enhanced_two" value="vl">
+                    <label for="eq2opt5">Strongly Agree</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-12">
+            <p class="enhanced-q-text">How did your visit compare to your expectations?</p>
+        </div>
+        <div class="col-12">
+            <div class="enhanced_radio enhancedQThree">
+                <input type="text" id="enhancedQThree" name="enhancedQThree" class="d-none" />
+                <div class="starPoly emptyRating radio-container" id="eq3Star1">
+                    <input id="eq3opt1" type="radio" name="enhanced_three" value="vu">
+                    <label for="eq3opt1">Much worse than I expected</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="eq3Star2">
+                    <input id="eq3opt2" type="radio" name="enhanced_three" value="u">
+                    <label for="eq3opt2">A bit worse than I expected</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="eq3Star3">
+                    <input id="eq3opt3" type="radio" name="enhanced_three" value="sl">
+                    <label for="eq3opt3">About the same as I expected</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="eq3Star4">
+                    <input id="eq3opt4" type="radio" name="enhanced_three" value="l">
+                    <label for="eq3opt4">A bit better than I expected</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="eq3Star5">
+                    <input id="eq3opt5" type="radio" name="enhanced_three" value="vl">
+                    <label for="eq3opt5">Much better than I expected</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-12">
+            <p class="enhanced-q-text">How was the comfort and cleanliness of the office?</p>
+        </div>
+        <div class="col-12">
+            <div class="enhanced_radio enhancedQFour">
+                <input type="text" id="enhancedQFour" name="enhancedQFour" class="d-none" />
+                <div class="starPoly emptyRating radio-container" id="eq4Star1">
+                    <input id="eq4opt1" type="radio" name="enhanced_four" value="vu">
+                    <label for="eq4opt1">Much worse than I expected</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="eq4Star2">
+                    <input id="eq4opt2" type="radio" name="enhanced_four" value="u">
+                    <label for="eq4opt2">A bit worse than I expected</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="eq4Star3">
+                    <input id="eq4opt3" type="radio" name="enhanced_four" value="sl">
+                    <label for="eq4opt3">About the same as I expected</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="eq4Star4">
+                    <input id="eq4opt4"  type="radio" name="enhanced_four" value="l">
+                    <label for="eq4opt4">A bit better than I expected</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="eq4Star5">
+                    <input id="eq4opt5" type="radio" name="enhanced_four" value="vl">
+                    <label for="eq4opt5">Much better than I expected</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-12">
+            <p class="enhanced-q-text">What mode of transportation did you use to get to your visit?</p>
+        </div>
+        <div class="col-12">
+            @Html.TextBoxFor(model => model.TransportationRating, new { @class = "form-control", placeholder = "Transportation Method" })
+            @Html.ValidationMessageFor(model => model.TransportationRating, "", new { @class = "text-danger" })
+            @*<div class="enhancedQFive">
+            <input type="text" id="enhancedQFive" name="enhancedQFive" class="d-none"/>
+            @{
+                List<SelectListItem> transportation = new List<SelectListItem>();
+                transportation.Add(new SelectListItem() { Text = "My Own Vehicle", Value = "10" }, new { @id = "eq5Star1" });
+                transportation.Add(new SelectListItem() { Text = "Somebody drove me", Value = "20" }, new { @id = "eq5Star2" });
+                transportation.Add(new SelectListItem() { Text = "Public transportation", Value = "30" }, new {@id = "eq5Star3"});
+                transportation.Add(new SelectListItem() { Text = "Taxi, Lyft, Uber", Value = "40" }, new { @id = "eq5Star4" });
+                transportation.Add(new SelectListItem() { Text = "Walked or took my bike", Value = "50" }, new { @id = "eq5Star5" });
+            }
+
+
+            @Html.DropDownListFor(model => model.EnhancedQFive, transportation, "Select your method", new { @class = "starPoly" })
+
+
+        </div>*@
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-12 text-center">
+            <button id="finishButtonEnhanced" type="submit" class="btn btn-primary">Next</button>
+        </div>
+    </div>
+
+}
+
+
+
+@section Scripts {
+    <script src="~/Scripts/EnhancedQuestions.js"></script>
+}
+

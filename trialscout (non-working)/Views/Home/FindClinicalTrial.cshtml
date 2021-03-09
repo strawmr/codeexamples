@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Find Clinical Trial";
+    Layout = "~/Views/Shared/_LayoutContentPages.cshtml";
+}
+@*<div class="container trsc-top-gradient">
+        <div class="trsc-panel-no-bg trsc-find-trial">
+            <h2>Find a Clinical Trial</h2>
+            <div class="trsc-partner-form">
+                @Html.Partial("_FindClinicalTrial")
+            </div>
+        </div>
+    </div>*@
+
+
+<div class="hero-image-subpages">
+    <div class="container">
+        <div class="row findTrialTextBox">
+            <h2 id="find">@Resources.ResearchCenterSearchHeading</h2>
+            <div class="col-12 headTXT">
+                @Html.Partial("_FindClinicalTrialHome")
+            </div>
+        </div>
+    </div>
+
+</div>
+@section scripts
+{
+    <script src="~/Scripts/FindClinicalTrial.js"></script>
+}

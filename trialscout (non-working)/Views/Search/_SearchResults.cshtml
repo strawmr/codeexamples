@@ -1,0 +1,177 @@
+﻿@model TrialScout.Web.ViewModels.SearchTrialsViewModel
+
+@if (Model.Results != null && Model.Results.Count() > 0)
+{
+    <div id="newPremiumResults">
+        @foreach (var item in Model.Results.Where(r => r.SubscriptionLevel.ToLower() == "premium"))
+        {
+            <div class="col-md-6 col-lg-12 trsc-premium-result trsc-dropshadow">
+                <div class="row">
+                    <div class="col-12 col-lg-1 col-xl-1">
+                        <div class="trsc-premium-partner-result-label">PREMIUM PARTNER</div>
+                    </div>
+                    <div class="col-12 col-lg-2 col-xl-2 trsc-search-result-logo">
+                        @if (item.LogoBlob != null && item.LogoBlob.Trim() != "")
+                        {
+                            <img src="@item.LogoBlob" />
+                        }
+                    </div>
+                    <div class="col-12 col-lg-5 col-xl-5 trsc-premium-partner-result-body">
+                        @*ResearchSite/{alias}/{aliasId}/{condition}/{location}*@
+                        <h4><a href="~/ResearchSite/@item.AliasId/@Model.Condition/@Model.Location?proximity=@Model.Proximity#tabs-2">@Html.DisplayFor(modelItem => item.AliasName)</a></h4>
+                        <div>
+                            @{ int i = 1;}
+                            @while (i <= item.AliasRanking)
+                            {
+                                i += 1;
+                                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = Guid.NewGuid().ToString(), ClassName = "fillRating", Height = 30, Width = 30, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                            }
+
+                            @if (item.AliasRanking % 1 != 0)
+                            {
+                                i += 1;
+                                @Html.Partial("_HalfStarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Height = 30, Width = 30, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                            }
+
+                            @while (i <= 5)
+                            {
+                                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = Guid.NewGuid().ToString(), ClassName = "emptyRating", Height = 30, Width = 30, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                                i += 1;
+                            }
+                            <span class="trsc-results-stars-desc">@String.Format("{0:f1}", item.AliasRankingTenths.ToString("N1")) out of 5 stars</span>
+                        </div>
+                        @if (item.GetSearchDescription != null && item.GetSearchDescription.Trim() != "")
+                        {
+                            <p>@item.GetSearchDescription</p>
+                        }
+
+
+                        <div class="trsc-premium-result-links">
+                            @*ResearchSite/{alias}/{aliasId}/{condition}/{location}*@
+                            <a href="~/ResearchSite/@item.AliasId/@Model.Condition/@Model.Location?proximity=@Model.Proximity#tabs-2"><img src="~/Content/images/icons/see-trials.svg" />&nbsp;See Trials ></a>
+                            <a href="~/ResearchSite/@item.AliasId/@Model.Condition/@Model.Location?proximity=@Model.Proximity#tabs-3"><img src="~/Content/images/icons/see-reviews.svg" />&nbsp;See Reviews ></a>
+
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-2 col-xl-2 trsc-premium-partner-result-body">
+
+                       @if (item.AliasIsTop50 @*&& !item.AliasIsSCRS*@)
+                       {
+                            <a href="~/Home/Top50Hospitals" target="_blank"><img src="~/Content/images/TrialScout_Award_FINAL.svg" class="top50badgepremium" alt="Top 50 Badge" /></a>
+                       }
+                       @*else if (item.AliasIsSCRS && !item.AliasIsTop50)
+                       {
+                            <a href="http://info.trialscout.com/scrs-members" target="_blank">
+                                <img src="~/Content/images/SCRSbadge.svg" class="top50badgepremium" alt="SCRS Badge" style="max-width:125px;" />
+                            </a>
+                       }
+                       else if (item.AliasIsTop50 && item.AliasIsSCRS)
+                       {
+                            
+                                <a href="~/Top50Hospitals" style="margin: 10px;" target="_blank">
+                                    <img src="~/Content/images/TrialScout_Award_FINAL.svg" class="top50badgepremium" alt="Top 50 Badge" style="max-width:125px;" />
+                                </a>
+                                <a href="http://info.trialscout.com/scrs-members" style="margin: 10px;" target="_blank">
+                                    <img src="~/Content/images/SCRSbadge.svg" class="top50badgepremium" alt="SCRS Badge" style="max-width:125px;" />
+                                </a>
+                            
+                       }*@
+                    </div>
+                        <div class="col-12 col-lg-2 col-xl-2 trsc-premium-partner-result-distance">
+                            <p><span class="trsc-miles">@item.ClosestTrial.ToString("N1")</span> miles<br /> from <br /><strong>@Model.Location</strong></p>
+                            <a href="~/ResearchSite/@item.AliasId/@Model.Condition/@Model.Location?proximity=@Model.Proximity" class="btn btn-primary btn-learn-more">Learn More</a>
+                        </div>
+                    </div>                
+                </div>
+         }
+    </div>
+    <div id="newBasicResults">
+        @foreach (var item in Model.Results.Where(r => r.SubscriptionLevel.ToLower() == "basic"))
+        {
+            <div class="col-12 trsc-basic-result">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-7">
+                        <h4><a href="~/ResearchSite/@item.AliasId/@Model.Condition/@Model.Location?proximity=@Model.Proximity#tabs-2">@Html.DisplayFor(modelItem => item.AliasName)</a></h4>
+                        @*<p>@Html.DisplayFor(modelItem => item.GetSearchDescription)</p>*@
+                        <div>
+                            @{ int i = 1;}
+                            @while (i <= item.AliasRanking)
+                            {
+                                i += 1;
+                                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = Guid.NewGuid().ToString(), ClassName = "fillRating", Height = 25, Width = 25, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                            }
+
+                            @if (item.AliasRanking % 1 != 0)
+                            {
+                                i += 1;
+                                @Html.Partial("_HalfStarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Height = 25, Width = 25, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                            }
+
+                            @while (i <= 5)
+                            {
+                                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = Guid.NewGuid().ToString(), ClassName = "emptyRating", Height = 25, Width = 25, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                                i += 1;
+                            }
+
+                            <span class="trsc-results-stars-basic-desc">@String.Format("{0:f1}", item.AliasRankingTenths.ToString("N1")) out of 5 stars</span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-2 col-xl-2">                  
+                        @if (item.AliasIsTop50 && !item.AliasIsSCRS)
+                        {
+                            <a href="~/Home/Top50Hospitals" target="_blank"><img src="~/Content/images/TrialScout_Award_FINAL.svg" class="top50badgebasic" alt="Top 50 Badge" /></a>
+                        }
+                        else if (item.AliasIsSCRS && !item.AliasIsTop50)
+                        {
+                            <a href="http://info.trialscout.com/scrs-members" target="_blank">
+                                <img src="~/Content/images/SCRSbadge.svg" alt="SCRS Badge" class="top50badgebasic" style="max-width:125px;" />
+                            </a>
+                        }
+                        else if (item.AliasIsTop50 && item.AliasIsSCRS)
+                        {
+                            <a href="~/Top50Hospitals" style="margin: 10px;" target="_blank">
+                                <img src="~/Content/images/TrialScout_Award_FINAL.svg" class="top50badgebasic" alt="Top 50 Badge" style="max-width:125px;" />
+                            </a>
+                            <a href="http://info.trialscout.com/scrs-members" style="margin: 10px;" target="_blank">
+                                <img src="~/Content/images/SCRSbadge.svg" class="top50badgebasic" alt="SCRS Badge" style="max-width:125px;" />
+                            </a>
+                        }
+                    </div>
+
+                    <div class="col-12 col-md-4 col-lg-3 text-center">
+                        <p>@item.ClosestTrial.ToString("N1") miles from @Model.Location</p>
+                        <a href="~/ResearchSite/@item.AliasId/@Model.Condition/@Model.Location?proximity=@Model.Proximity" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+                </div>
+
+                                }
+    </div>
+
+    <script type="text/javascript">
+        $('#premiumResults').append($('#newPremiumResults').html());
+        $('#newPremiumResults').remove();
+        $('#basicResults').append($('#newBasicResults').html());
+        $('#newBasicResults').remove();
+
+        @if (Model.Results.Where(r => r.SubscriptionLevel.ToLower() == "basic").Count() > 0)
+        {
+            <text>$('#Ads').show();</text>
+        }
+    </script>
+   
+
+}
+else
+{
+    <div class="row">
+        <div class="col-12">
+            <p class="text-center">No Results Found.</p>
+        </div>
+    </div>
+}
+
+
+
+

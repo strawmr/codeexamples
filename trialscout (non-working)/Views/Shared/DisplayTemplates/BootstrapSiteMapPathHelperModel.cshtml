@@ -1,0 +1,48 @@
+﻿@model MvcSiteMapProvider.Web.Html.Models.SiteMapPathHelperModel
+@using System.Web.Mvc.Html
+@using System.Linq
+@using MvcSiteMapProvider.Web.Html.Models
+
+@section AddToHead{
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/datatables")
+    @Scripts.Render("~/bundles/jqueryval")}
+
+@if (Model.Nodes.Count != 1)
+{
+
+    
+    <nav aria-label="breadcrumb" class="profile-breadcrumb">
+        <ol class="breadcrumb">
+            @foreach (var node in Model.Nodes)
+            {
+                //if (node == Model.Nodes.First())
+                //{
+                //    continue;
+                //}
+                if (node != Model.Nodes.Last())
+                {
+                    string url = node.IsClickable ? node.Url : "#";
+
+                    <li class="breadcrumb-item"><a href="@url">@node.Title</a></li>
+                }
+                else
+                {
+                   
+                    <li class="breadcrumb-item active" aria-current="page">@node.Title</li>
+                }
+            }
+           
+        </ol>
+    </nav>
+}
+
+
+
+
+
+

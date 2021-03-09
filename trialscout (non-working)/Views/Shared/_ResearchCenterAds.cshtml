@@ -1,0 +1,64 @@
+﻿
+
+@model TrialScout.Web.ViewModels.ResearchCenterAdsViewModel
+    @using System.Threading;
+
+@if (Model.Vertical)
+{
+    <div class="centerAds">
+        <div class="">
+            <div class="col-12">
+                <h3>Trusted Partners</h3>
+            </div>
+        </div>
+
+        <div class="verticalAds">
+            @foreach (var item in Model.Centers)
+            {
+                <div class="col-12">
+                    <a href="~/ResearchCenter/@item.UrlSafeLocationName/@item.CenterId?linkId=@item.AdId">
+                        <img src="@item.ImageBlob" alt="@item.LocationName" class="img-fluid" />
+                    </a>
+                </div>
+            }
+        </div>
+
+    </div>
+}
+else
+{
+
+    <div class="horizontalAds">
+        @foreach (var item in Model.Centers)
+        {
+            <div>
+                <a href="~/ResearchCenter/@item.UrlSafeLocationName/@item.CenterId?linkId=@item.AdId">
+                    <img src="@item.ImageBlob" alt="@item.LocationName" class="img-fluid" />
+                </a>
+            </div>
+
+        }
+    </div>
+
+    <script type="text/javascript" src="~/Scripts/slick.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.horizontalAds').slick({
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 4000,
+
+            });
+        });
+    </script>
+
+
+
+    <div class="row">
+        <div class="col-12 trsc-partners">
+            <a href="~/ResearchCenter/ClaimResearchCenter" class="btn btn-primary bapButton">Become A Partner</a>
+        </div>
+    </div>
+}

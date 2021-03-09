@@ -1,0 +1,127 @@
+﻿@model TrialScout.Web.ViewModels.EnhancedAuthenticatedReviewViewModel
+
+@{
+    ViewBag.Title = "Enhanced Research Center Rating";
+    Layout = "~/Views/Shared/_LayoutContentPages.cshtml";
+}
+<style>
+    .text-danger {
+        color: #dc3545;
+    }
+</style>
+
+<form id="enhancedratingForm" class="trsc-ratings-form">
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.RatingId)
+
+    <div class="row">
+        <div class="col text-center" style="padding:30px 0 60px 0;">
+            <h3>Through TrialScout, your feedback helps to improve the clincal research experience for everyone.</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col text-center">
+            @Html.TextBoxFor(model => model.EmailAddress, new { @class = "form-control", placeholder = "example@email.com" })
+            @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col col-lg-6 text-center">
+            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", placeholder = "First Name" })
+            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+        </div>
+        <div class="col col-lg-6 text-center">
+            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", placeholder = "Last Name" })
+            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col text-center">
+            <p class="trsc-ratings-feedback-msg">If you would like to leave a publicly posted comment, we need your name and email so we can follow up about your feedback.<br /> Your name and email address will NOT appear publicly with your review.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col text-center">
+            @Html.TextAreaFor(model => model.Comment, new { @class = "form-control", @rows = 8, placeholder = "Share details of what you liked or what you did not like about your experience. Do not provide any identifying or medical information in your review or it will not be posted." })
+            @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col text-center">
+            @Html.CheckBoxFor(model => model.ShouldContact) Yes, I am willing to be contacted by my clinical research center about my feedback.
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-12 text-center">
+            <button id="finishButtonEnhanced" type="button" class="btn btn-primary">Next</button>
+        </div>
+    </div>
+
+</form>
+
+
+<div id="enhancedconfirmationModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thank you for your review!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="enhancedfollowUpForm">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <p>Did you find TrialScout to be helpful?</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-8 text-center">
+                            <div class="trialScoutRating">
+                                <input type="text" id="trialScoutRating" name="trialScoutRating" class="d-none" />
+                                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "trialScoutStar1", ClassName = "emptyRating", Title = "Poor", Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "trialScoutStar2", ClassName = "emptyRating", Title = "Fair", Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "trialScoutStar3", ClassName = "emptyRating", Title = "Average", Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "trialScoutStar4", ClassName = "emptyRating", Title = "Very Good", Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "trialScoutStar5", ClassName = "emptyRating", Title = "Excellent", Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                                <div id="trialScoutRatingDescription" class="trsc-star-rating-text"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2"></div>
+                    </div>
+
+                    @*<input type="hidden" name="ShouldContact" value="false" />*@
+
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <button type="submit" id="submitFollowUpEnhanced" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 text-center rateDecline">
+                            <a href="/home">Return to Home Page</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script src="~/Scripts/AuthenticatedReview.js"></script>
+}

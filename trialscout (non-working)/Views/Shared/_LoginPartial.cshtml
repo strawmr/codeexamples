@@ -1,0 +1,122 @@
+﻿@using Microsoft.AspNet.Identity
+@using System.Configuration;
+@using System.Threading;
+@using TrialScout.Web.Localization;
+
+@{
+    var routeValues = this.ViewContext.RouteData.Values;
+    var controller = routeValues["controller"] as string;
+    var action = routeValues["action"] as string;
+    var researchCenterName = routeValues["name"] as string;
+    var alias = routeValues["alias"] as string;
+}
+<nav class="navbar navbar-expand-lg trsc-main-nav-mobile">
+    <a class="mobile-logo-home" href="~/"><img src="~/Content/images/TSNoTagLogo.svg" class="trsc-logo-mobile" /></a>
+    <button class="navbar-toggler navbar-toggler-right nav-toggle" type="button" data-toggle="collapse" @*onclick="mobileNavOpen()"*@ aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon nav-toggle">
+            <i @*onclick="mobileNavOpen()"*@ class='fa fa-navicon'></i>
+        </span>
+    </button>
+</nav>
+<div id="mobileNav" class="mobileMenu">
+    <a href="javascript:void(0)" class="closebtn" onclick="mobileNavClose()">&times;</a>
+    <div class="mobileMenu-content">
+        <ul class="navbar-nav">
+            <li class="nav-item"> @Html.ActionLink(@Resources.HomeLink, "Index", "Home")<div></div></li>
+            <li class="nav-item"><a href="~/TheNest/ClinicalResearch101">@Resources.AboutClinicalTrialsLink</a><div></div></li>
+            <li class="nav-item"> @Html.ActionLink(@Resources.FindATrialLink, "FindClinicalTrial", "Home")<div></div></li>
+            <li class="nav-item">@Html.ActionLink(@Resources.LeaveAReviewLink, "Index", "Ratings/RateResearchCenter")<div></div></li>
+            <li><a href="~/TheNest">Patients</a></li>
+            <li>@Html.ActionLink(@Resources.ResearchCentersLink, "LookUpResearchCenter", "Home")</li>
+            <li><a href="https://info.trialscout.com/join-trialscout-today?__hstc=181257784.3ff1108c2fb56e367d9dc88ffc498409.1561657193727.1561736899672.1561737554471.4&__hssc=181257784.9.1561737554471&__hsfp=2085519510" target="_blank">Sponsors</a></li>
+            <li><a href="~/Home/ContactUs">Contact Us</a></li>
+            <li>
+                @if (Request.IsAuthenticated)
+                {
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @Html.ActionLink("Manage Account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                        <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+
+                    }
+                }
+                else
+                {
+                    @Html.ActionLink(Resources.LogInLabel, "Login", "Account", routeValues: null, htmlAttributes: new { @class = "trsc-admin-log", id = "loginLink" })
+                }
+            </li>
+            <li class="nav-item dropdown">
+                @*<a>
+                        @foreach (string lang in ConfigurationManager.AppSettings["SupportedCultures"].Split(','))
+                        {
+                            @Html.ActionLink(Languages.GetLanguageValue(lang), action, controller, new { culture = lang }, new { @style = Thread.CurrentThread.CurrentCulture.Name == lang ? "font-weight:bold !important;color:black !important;" : "font-weight:normal !important;color:black !important;", @class = "dropdown-item" })
+                        }
+                    </a>*@
+                @if (!string.IsNullOrEmpty(researchCenterName))
+                {
+                    <a>
+                        @foreach (string lang in ConfigurationManager.AppSettings["SupportedCultures"].Split(','))
+                        {
+
+                            @Html.ActionLink(Languages.GetLanguageValue(lang), action, controller, new { culture = lang, name = researchCenterName }, new { @style = Thread.CurrentThread.CurrentCulture.Name == lang ? "font-weight:bold !important;color:black !important;" : "font-weight:normal !important;color:black !important;", @class = "dropdown-item" })
+                        }
+
+                    </a>
+                }
+
+                @if (!string.IsNullOrEmpty(alias))
+                {
+                    <a>
+                        @foreach (string lang in ConfigurationManager.AppSettings["SupportedCultures"].Split(','))
+                        {
+
+                            @Html.ActionLink(Languages.GetLanguageValue(lang), action, controller, new { culture = lang, alias = alias }, new { @style = Thread.CurrentThread.CurrentCulture.Name == lang ? "font-weight:bold !important;color:black !important;" : "font-weight:normal !important;color:black !important;", @class = "dropdown-item" })
+                        }
+
+                    </a>
+                }
+
+                @if (string.IsNullOrEmpty(alias) && string.IsNullOrEmpty(researchCenterName))
+                {
+                    <a>
+                        @foreach (string lang in ConfigurationManager.AppSettings["SupportedCultures"].Split(','))
+                        {
+
+                            @Html.ActionLink(Languages.GetLanguageValue(lang), action, controller, new { culture = lang }, new { @style = Thread.CurrentThread.CurrentCulture.Name == lang ? "font-weight:bold !important;color:black !important;" : "font-weight:normal !important;color:black !important;", @class = "dropdown-item" })
+                        }
+
+                    </a>
+
+                }
+            </li>
+        </ul>
+    </div>
+</div>
+@if (Request.IsAuthenticated)
+{
+    <style>
+
+        .trsc-main-nav-mobile {
+            margin-top: 0 !important;
+        }
+    </style>
+}
+<script>
+
+    $(function () {
+        $('.nav-toggle').on('click', function (e) {
+            $('.mobileMenu').toggleClass('open');
+
+            e.stopPropagation();
+            return false;
+        });
+
+        $('*:not(.nav-toggle)').on('click', function () {
+            $('.mobileMenu').removeClass('open');
+        });
+
+    });
+
+</script>

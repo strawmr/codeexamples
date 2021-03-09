@@ -1,0 +1,37 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        var stepPlaceholderOne = "";
+        var stepPlaceholderTwo = "";
+        if (window.location.href.indexOf("ResearchCenter") == -1) {
+            stepPlaceholderOne = "2. ";
+            stepPlaceholderTwo = "3. ";
+        }
+        $('#stepP1').html(stepPlaceholderOne);
+        $('#stepP2').html(stepPlaceholderTwo);
+    });
+</script>
+<div class="searchBar">
+    <div class="row ratingBar" style="background-color:#fff;">
+        <div class="col-sm-12 col-md-12 col-lg-6 searchbarinput inputrad">           
+                <input type="hidden" id="ratingResearchCenterId" name="ratingResearchCenterId" />
+                <input type="hidden" id="ratingResearchCenterName" name="ratingResearchCenterName" />
+                <input style="border: 0 solid #ced4da;" type="text" id="ratingResearchCenterDisplayName" name="ratingResearchCenterDisplayName" class="form-control" placeholder="@Resources.RateCenterInputPlaceholder" />
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-1 searchbarlable2">
+            <label id="homelabel">@Resources.RateLabel</label>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4 searchbarinput">
+            <div class="overallRating RatingHome">
+                <input type="text" id="overallRating" name="overallRating" class="d-none" />
+                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "overallStar1", ClassName = "emptyRating", Title = "No, it was disappointing.", Height = 65, Width = 65, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "overallStar2", ClassName = "emptyRating", Title = "No, it was unfulfilling.", Height = 65, Width = 65, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "overallStar3", ClassName = "emptyRating", Title = "Yes, it was a good experience.", Height = 65, Width = 65, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "overallStar4", ClassName = "emptyRating", Title = "Yes, it was impactful.", Height = 65, Width = 65, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "overallStar5", ClassName = "emptyRating", Title = "Yes, it was empowering.", Height = 65, Width = 65, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-1 searchbarbtn">
+            <button style="height:100%;float:right;font-weight:bold;" id="completeRating" type="button" class="btn btn-success ratingbtn" data-url="@Url.Action("VerifiedRating", "Ratings")">@Resources.CompleteRatingButton</button>
+        </div>
+    </div>
+</div>

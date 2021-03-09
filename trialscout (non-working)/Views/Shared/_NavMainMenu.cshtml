@@ -1,0 +1,146 @@
+﻿<style>
+</style>
+@using Microsoft.AspNet.Identity
+@using System.Configuration;
+@using System.Threading;
+@using TrialScout.Web.Localization;
+
+@{
+    var routeValues = this.ViewContext.RouteData.Values;
+    var controller = routeValues["controller"] as string;
+    var action = routeValues["action"] as string;
+    var researchCenterName = routeValues["name"] as string;
+    var alias = routeValues["alias"] as string;
+}
+<nav class="navbar navbar-expand-lg trsc-main-nav">
+    @*<a href="~/">
+            <img src="~/Content/images/TSNoTagLogo.svg" class="trsc-logo-mobile"/>
+        </a>*@
+    @*<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">
+                <img src="~/Content/images/icons/menutoggle.svg" class="expand" />
+                <img src="~/Content/images/icons/close.svg" class="close" />
+            </span>
+        </button>*@
+    <div class="collapse navbar-collapse navbar-expand-md float-right" id="collapsibleNavbar" style="max-height: 60px;">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"> @Html.ActionLink(@Resources.HomeLink, "Index", "Home")<div></div></li>
+            <li class="nav-item"><a href="~/TheNest/ClinicalResearch101">@Resources.AboutClinicalTrialsLink</a><div></div></li>
+            <li class="nav-item"> @Html.ActionLink(@Resources.FindATrialLink, "FindClinicalTrial", "Home")<div></div></li>
+            <li class="nav-item">@Html.ActionLink(@Resources.LeaveAReviewLink, "Index", "Ratings/RateResearchCenter")<div></div></li>
+
+            <li class="nav-item side-slide-nav nav-toggle"><a><i style="font-size: 18px;" class='fa fa-navicon'></i></a></li>
+        </ul>
+    </div>
+</nav>
+
+@*Sidebar Nav*@
+<div id="mySidenav" class="sidenav">
+    <div class="row" style="margin-bottom: 40%">
+        <a href="javascript:void(0)" class="closebtn">&times;</a>
+    </div>
+    <a href="~/TheNest">@Resources.PatientsLink</a>
+    <a href="~/Home/LookUpResearchCenter">@Resources.ResearchCentersLink</a>
+    <a href="https://info.trialscout.com/join-trialscout-today?__hstc=181257784.3ff1108c2fb56e367d9dc88ffc498409.1561657193727.1561736899672.1561737554471.4&__hssc=181257784.9.1561737554471&__hsfp=2085519510" target="_blank">Sponsors</a>
+    <a href="~/Home/ContactUs">@Resources.ContactUsLink</a>
+
+    @if (Request.IsAuthenticated)
+    {
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ActionLink("Manage Account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+        }
+    }
+    else
+    {
+        @Html.ActionLink(Resources.LogInLabel, "Login", "Account", routeValues: null, htmlAttributes: new { @class = "trsc-admin-log", id = "loginLink" })
+    }
+
+    @*<a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:black !important;">@Languages.GetLanguageValue(Thread.CurrentThread.CurrentCulture.Name)</a>*@
+
+    @if (!string.IsNullOrEmpty(researchCenterName))
+    {
+        <a>
+            @foreach (string lang in ConfigurationManager.AppSettings["SupportedCultures"].Split(','))
+            {
+
+                @Html.ActionLink(Languages.GetLanguageValue(lang), action, controller, new { culture = lang, name = researchCenterName }, new { @style = Thread.CurrentThread.CurrentCulture.Name == lang ? "font-weight:bold !important;color:black !important;" : "font-weight:normal !important;color:black !important;", @class = "dropdown-item" })
+            }
+
+        </a>
+    }
+
+    @if (!string.IsNullOrEmpty(alias))
+    {
+        <a>
+            @foreach (string lang in ConfigurationManager.AppSettings["SupportedCultures"].Split(','))
+            {
+
+                @Html.ActionLink(Languages.GetLanguageValue(lang), action, controller, new { culture = lang, alias = alias }, new { @style = Thread.CurrentThread.CurrentCulture.Name == lang ? "font-weight:bold !important;color:black !important;" : "font-weight:normal !important;color:black !important;", @class = "dropdown-item" })
+            }
+
+        </a>
+    }
+
+    @if (string.IsNullOrEmpty(alias) && string.IsNullOrEmpty(researchCenterName))
+    {
+        <a>
+                @foreach (string lang in ConfigurationManager.AppSettings["SupportedCultures"].Split(','))
+                {
+
+                    @Html.ActionLink(Languages.GetLanguageValue(lang), action, controller, new { culture = lang }, new { @style = Thread.CurrentThread.CurrentCulture.Name == lang ? "font-weight:bold !important;color:black !important;" : "font-weight:normal !important;color:black !important;", @class = "dropdown-item" })
+                }
+
+            </a>
+
+    }
+
+
+
+
+
+</div>
+
+
+@if (Request.IsAuthenticated)
+{
+    <style>
+
+        .trsc-main-nav {
+            margin-top: 0 !important;
+        }
+    </style>
+}
+<script>
+    //function opennav() {
+    //    document.getelementbyid("mysidenav").style.width = "175px";
+    //    document.body.style.backgroundcolor = "rgba(0,0,0,0.4)";
+    //    $('body').addclass("fixedposition");
+    //    document.getelementbyid("mysidenav").style.borderleft = "1px solid #707070";
+    //}
+
+    //function closenav() {
+    //    document.getelementbyid("mysidenav").style.width = "0";
+    //    document.body.style.backgroundcolor = "white";
+
+    //    document.getelementbyid("mysidenav").style.borderleft = "none";
+    //    $('body').removeclass("fixedposition");
+    //}
+
+    $(function () {
+        $('.nav-toggle').on('click', function (e) {
+            $('.sidenav').toggleClass('open');
+
+            e.stopPropagation();
+            return false;
+        });
+
+        $('*:not(.nav-toggle)').on('click', function () {
+            $('.sidenav').removeClass('open');
+        });
+
+    });
+</script>

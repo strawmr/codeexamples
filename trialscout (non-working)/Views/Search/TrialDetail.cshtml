@@ -1,0 +1,406 @@
+﻿@model TrialScout.Web.ViewModels.TrialStudyDetailViewModel
+@{
+    ViewBag.Title = Model.nct_id + " | " + Model.AliasName;
+    Layout = "~/Views/Shared/_LayoutRCProfile.cshtml";
+}
+<div class="trsc-study-detail trsc-standard-toggle-this-on-and-off">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                @*@if (!string.IsNullOrWhiteSpace((string)ViewBag.ReturnUrl) && ((string)ViewBag.ReturnUrl).Contains(Request.Url.Scheme + System.Uri.SchemeDelimiter + Request.Url.Host + (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port) + "/ResearchCenter"))
+                {
+                    <nav aria-label="breadcrumb" style="padding: 5px 0px;">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="~/Home">Home</a></li>
+                            <li class="breadcrumb-item"><a href="@ViewBag.SearchResults">Search</a></li>
+                            <li class="breadcrumb-item"><a href="@String.Format(@ViewBag.ReturnUrl.ToString()+"#tabs-2")">Location</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">@Model.nct_id</li>
+                        </ol>
+                    </nav>
+                }*@
+                <h1 class="trsc-study-detail-trial-name" style="margin-left:0px; font-weight:bold; font-size:36px;margin-right: 0;">@Model.brief_title</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-12">
+                <div class="row trial-icons">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-3 gender">
+                                <span>@Model.GendersEligible</span>
+                                <div class="gender-background">
+                                    @switch (Model.GendersEligible)
+                                    {
+                                        case "Male":
+                                            <span id="male">
+                                                <img src="/Content/images/icons/ic_wc_-1.svg" />
+                                            </span>
+                                            break;
+                                        case "Female":
+                                            <span id="female">
+                                                <img src="/Content/images/icons/ic_wc_24px.svg" />
+                                            </span>
+                                            break;
+                                        default:
+                                            <span id="female">
+                                                <img src="/Content/images/icons/ic_wc_24px.svg" />
+                                            </span>
+                                            <span id="male">
+                                                <img src="/Content/images/icons/ic_wc_-1.svg" />
+                                            </span>
+                                            break;
+                                    }
+
+                                </div>
+                            </div>
+                            <div class="col-3 age"><span>Age</span><div id="age-background">@Model.AgesEligible</div></div>
+                            <div class="col-3 phase">
+                                @if (Model.phase == null || Model.phase.Contains('/'))
+                                {
+                                    if (Model.phase == null || Model.phase.Trim() == "N/A")
+                                    {
+                                        <span class="text-nowrap">
+                                            Phase
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-nowrap">
+                                            @String.Format($"{@Model.phase.Split('/')[0]}/{@Model.phase.Split('/')[1].Substring(6)}")
+                                        </span>
+                                    }
+
+                                }
+                                else
+                                {
+                                    if (Model.phase.Trim() == "Early Phase 1")
+                                    {
+                                        <span class="text-nowrap">
+                                            @String.Format("Phase 1")
+                                        </span>
+                                    }
+                                    else
+                                    {
+
+                                        <span class="text-nowrap">
+                                            @Model.phase
+                                        </span>
+                                    }
+                                }
+
+                                <div class="phase-background">
+                                    @if (Model.GetPhase.Trim() == "N/A")
+                                    {
+                                        <div id="not-applicable">N/A</div>
+                                    }
+                                    else
+                                    {
+                                        for (var i = 1; i <= Convert.ToInt32(Model.GetPhase); i++)
+                                        {
+                                            <span id="+Convert.ToString(i)+">
+                                                <img src="/Content/images/icons/ic_chevron_right_24px.svg" />
+                                            </span>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col--md-6 status_options" style="height:70px;">
+                        <div class="row">
+                            <div class=" col-6" style="padding:18px 10px 0px 15px;max-width: 40%;">
+                                <div class=" trial-interested" ><a style="cursor:pointer;" data-studyid="@Model.nct_id" data-toggle="modal" data-target="#studyModal">@Resources.ImInterestedButton</a></div>
+
+                            </div>
+
+                            <div class="trial_action trial-download col-2" ><a href="javascript:window.print()"><img title="Download" src="/Content/images/icons/ic_get_app_24px.svg" /></a></div>
+
+                            <div class="trial_action  trial-print col-2" ><a href="javascript:window.print()"><img title="Print" src="/Content/images/icons/ic_print_24px.svg" /></a></div>
+                            <div class=" trial_action trial-share col-2"><a style="cursor:pointer;" data-toggle="modal" data-target="#shareModal"><img title="Share" src="/Content/images/icons/ic_share_24px.svg" /></a></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        @*<div class="status_options2">
+            <div class="row">
+                <div class="background">
+
+                </div>
+                <div class="trial-interested trial_action" style="margin:0; right:218px">
+                    <a style="cursor:pointer;" data-studyid="@Model.nct_id" data-toggle="modal" data-target="#studyModal">Interested</a>
+                </div>
+
+                <div class="col-4 trial_action" style="right:180px;"><a href=""><img src="/Content/images/icons/ic_get_app_24px.svg" /></a></div>
+
+                <div class="col-4 trial_action" style="right:90px;"><a href=""><img src="/Content/images/icons/ic_print_24px.svg" /></a></div>
+                <div class="col-4 trial_action" style="right:0;"><a href=""><img src="/Content/images/icons/ic_share_24px.svg" /></a></div>
+
+            </div>
+
+        </div>*@
+
+        <div class="row">
+            <div class="tabbable-panel">
+                <div class="tabbable-line" id="tabs-line">
+                    <ul class="nav nav-tabs">
+                        <li class="active" data-toggle="tab">
+                            <a href="#Overview" data-toggle="tab">Overview</a>
+                        </li>
+                        <li>
+                            <a href="#Eligibility" data-toggle="tab">Eligibility</a>
+                        </li>
+                        <li>
+                            <a href="#FAQs" data-toggle="tab">FAQs</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="Overview">
+                            <div class="col-md-12 col-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12" style="padding-right: 20px; border-right:1px solid #ccc;">
+                                            <h4>Brief Summary</h4>
+                                            <p>@Model.official_title</p>
+                                            <br />
+                                            <br />
+                                            <div class="trsc-trial-identifiers">
+                                                ClinicalTrials.gov Identifier: @Model.nct_id<br />
+                                                Recruitment Status: @Model.overall_status<br />
+                                                First Posted: @Model.study_first_posted_date<br />
+                                                Last Update Posted: @Model.last_update_posted_date<br />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            @if (Model.Conditions.Trim() != "" && Model.Conditions != null)
+                                            {
+                                                <h4 class="keywords">Keywords</h4>
+                                                <p>@Html.Raw(Model.Conditions)</p>
+                                            }
+
+                                            @if (Model.Interventions.Trim() != "" && Model.Interventions != null)
+                                            {
+                                                <h4 class="keywords" style="word-wrap:break-word">Intervention/Treatment</h4>
+                                                <p>@Html.Raw(Model.Interventions)</p>
+                                            }
+
+                                            @if (Model.Description != null)
+                                            {
+
+                                                <h4>Detailed Description</h4>
+
+                                                if (Model.Description.Length >= 1500)
+                                                {
+                                                    <p>@Html.Raw(Model.Description.Substring(0, 1500).TrimEnd())<span id="loadMore">@String.Format("...") <a id="loadMoreButton" href="#loadMoreButton">Read More</a> </span> <span id="more">@Html.Raw(Model.Description.Substring(1500).TrimStart())</span>  </p>
+
+                                                }
+                                                else
+                                                {
+                                                    <p>@Html.Raw(Model.Description)</p>
+                                                }
+                                            }
+
+
+                                        </div>
+                                    </div>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane" id="Eligibility">
+                            <div class="col-md-12 col-12">
+                                <div class="row">
+                                    @if (Model.Criteria.ToLower().Contains("exclusion criteria"))
+                                    {
+                                        <div class="col-sm-12 col-md-6" style="padding-right: 20px; border-right:1px solid #ccc;">
+                                            <h4><span class="check-mark"><img src="~/Content/images/icons/ic_offline_pin_24px.svg" /></span>You may be eligible to join if...</h4>
+                                            <p>
+                                                @Html.Raw(Model.Criteria.ToLower().Split(new String[] { "exclusion criteria" }, StringSplitOptions.RemoveEmptyEntries)[0].ToString().Replace("\n", "<br/>").Replace("inclusion criteria:", ""))
+                                            </p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6">
+                                            <h4><span class="check-mark"><img src="~/Content/images/icons/ic_cancel_24px.svg" /></span>You may NOT be eligible to join if...</h4>
+
+                                            <p>@Html.Raw(Model.Criteria.ToLower().Split(new String[] { "exclusion criteria" }, StringSplitOptions.RemoveEmptyEntries)[1].ToString().Replace("\n", "<br/>").Replace("exclusion criteria", "").Replace(":",""))</p>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-12">
+                                            <h4>Criteria</h4>
+                                            <p>@Html.Raw(Model.Criteria.Replace("\n", "<br/>"))</p>
+                                        </div>
+                                    }
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="FAQs">
+                            <div class="col-md-12 col-12">
+                                <h4>Learn About Clinical Trials</h4>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card mb-3">
+                                            <img src="~/Content/images/image.png" class="card-img-top" alt="blog-img" style="height: 385px;" />
+                                            <div class="card-body">
+                                                <h4 class="card-title"><a href="https://blog.trialscout.com/clinical-trials-patients/your-clinical-trial-journey-understanding-the-clinical-trial-landscape" target="_blank">Your Clinical Trial Journey: Understanding the Clinical Trial Landscape</a></h4>
+                                                <p class="card-text">As you embark on your clinical trial journey, you may be asking: What happens before the drug gets tested in humans? What is a clinical trial? How come some clinical trials have few participants and some have hundreds or...</p>
+                                                <h5><a href="https://blog.trialscout.com/clinical-trials-patients/your-clinical-trial-journey-understanding-the-clinical-trial-landscape" target="_blank">Read More</a></h5>
+                                                <p class="card-text"><small class="text-muted">AMY ROCHFORD - DEC 27, 2018</small></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card mb-3">
+                                            <img src="~/Content/images/image (1).png" class="card-img-top" alt="blog-img" />
+                                            <div class="card-body">
+                                                <h4 class="card-title"><a href="https://blog.trialscout.com/clinical-trials-patients/clinical-trials-consist-of-four-phases-what-are-they" target="_blank">Clinical Trials Consist of Four Phases: What are they?</a></h4>
+                                                <p class="card-text">
+                                                    Clinical trials is a term that many people have heard, but not enough seem to know about. Conducted to collect data about the efficiency and safety of a potential new treatment option, clinical trials are multi-level processes...
+                                                </p>
+                                                <h5><a href="https://blog.trialscout.com/clinical-trials-patients/clinical-trials-consist-of-four-phases-what-are-they" target="_blank">Read More</a></h5>
+                                                <p class="card-text"><small class="text-muted">CLINICAL TRIALS - NOV 20, 2018</small></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card mb-3">
+                                            <img src="~/Content/images/Group of volunteers putting hands together on white background.jpeg" class="card-img-top" alt="blog-img" />
+                                            <div class="card-body">
+                                                <h4 class="card-title"><a href="https://blog.trialscout.com/clinical-trials-patients/the-importance-of-volunteering-in-a-clinical-trial" target="_blank">The Importance of Volunteering in a Clinical Trial</a></h4>
+                                                <p class="card-text">
+                                                    I have always been someone that loves to volunteer and help the local community. I have participated in food drives, given back to the local animal shelter and volunteered at my local ambulance corp. Volunteers are apart of our everyday life, but they seem to be somewhat easily forgotten about. Think about it. You don’t often think about an EMT or volunteer firefighter...
+                                                </p>
+                                                <h5><a href="https://blog.trialscout.com/clinical-trials-patients/the-importance-of-volunteering-in-a-clinical-trial" target="_blank">Read More</a></h5>
+                                                <p class="card-text"><small class="text-muted">FRANCESCA DOMINIANNI - JUNE 5, 2019</small></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card mb-3">
+                                            <img src="~/Content/images/Your Feedback Matters placard with bokeh background.jpeg" class="card-img-top" alt="blog-img" />
+                                            <div class="card-body">
+                                                <h4 class="card-title"><a href="https://blog.trialscout.com/clinical-trials-patients/amazon-uber-yelp...why-not-clinical-trials" target="_blank">Amazon, Uber, Yelp...Why Not Clinical Trials?</a></h4>
+                                                <p class="card-text">
+                                                    So you call an Uber, you see your driver has a low rating, do you really want to get in the car or are you now feeling skeptical? Or picture this- you are going on a weekend trip with your friends you haven’t seen in years and you want to pick the best restaurants in the area...
+                                                </p>
+                                                <h5><a href="https://blog.trialscout.com/clinical-trials-patients/amazon-uber-yelp...why-not-clinical-trials" target="_blank">Read More</a></h5>
+                                                <p class="card-text"><small class="text-muted">FRANCESCA DOMINIANNI - APR 19, 2019</small></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+
+                        </div>
+                    </div>
+                </div>
+                <div class="trsc-study-notices-row">
+                    <div class="col-12 col-md-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="text-center">
+                                    The safety and scientific validity of this study is the responsibility of the study sponsor and investigators. Listing a study does
+                                    not mean it has been evaluated by the U.S. Federal Government. Know the risks and potential benefits of clinical studies and
+                                    talk to your health care provider before participating. Read our disclaimer for details.
+                                </p>
+                                <p class="text-center"><a href="https://clinicaltrials.gov" target="_blank">Go to ClinicalTrials.gov ></a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="studyModal" tabindex="-1" data-url="@Url.Action("ContactUs", "Search", new { CenterId = Model.CenterId })">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header"></div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div id="studyContainer">
+                        <span class="contact-center">
+                            <img src="~/Content/images/ajax-loader2.gif" />
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="shareModalTitle">Share via</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-3"><a target="_blank" title="Share via Outlook Web" href="https://mail.live.com/default.aspx?rru=compose&subject=I found this trial on Trialscout.com&to=&body=@Request.Url&lc=1033&id=64855&mkt=en-us&cbcxt=mai"><img src="~/Content/images/icons/outlook (1).svg" /></a></div>
+                        <div class="col-3"><a title="Share via Outlook" href="mailto:?subject=I found this trial on Trialscout.com&body=@Request.Url"><img src="~/Content/images/icons/outlook.svg" /></a></div>
+                        <div class="col-3"><a target="_blank" title="Share via Yahoo" href="http://compose.mail.yahoo.com/?&Subject=I found this trial on Trialscout.com&To=&Body=@Request.Url"><img src="~/Content/images/icons/yahoo.svg" /></a></div>
+                        <div class="col-3"><a target="_blank" title="Share via Gmail" href="https://mail.google.com/mail/?view=cm&su=I found this trial on Trialscout.com&to&body=@Request.Url&scc=1<mpl=default<mplcache=2&emr=1&osid=1#identifier"><img src="~/Content/images/icons/gmail.svg" /></a></div> 
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        @if (Model.SubscriptionLevel.ToLower() != "premium")
+        {
+            <text>
+                $('.trsc-study-detail').addClass('trsc-standard');
+            </text>
+        }
+        else {
+            <text>$('#Ads').remove();</text>
+        }
+
+        $("#tabs-line").tabs();
+
+        $('.mobile-menu i').click(function () {
+            $('.menu').slideToggle();
+            return false;
+        });
+
+        $("#more").hide();
+
+        $("#loadMoreButton").click(function () {
+            $("#loadMore").hide();
+            $("#more").show();
+        })
+    });
+
+    $('#studyModal').on('shown.bs.modal', function (modalCaller) {
+        var studyId = $(modalCaller.relatedTarget).data('studyid'); // how funky is that
+        var url = $('#studyModal').data('url') + '?studyId=' + studyId;
+        console.log(url);
+        $.ajax({
+            url: url,
+            global: false,
+            success: function (data) {
+                $('#studyContainer').html(data);
+            }
+        });
+    });
+
+</script>
+

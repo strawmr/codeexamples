@@ -1,0 +1,83 @@
+﻿@model IEnumerable<TrialScout.Web.ViewModels.Top50AwardsViewModel>
+@{
+    ViewBag.Title = "Top 50 Hospitals";
+    Layout = "~/Views/Shared/_LayoutTSAwards.cshtml";
+}
+
+<div class="container">
+    <div class="container">
+        <div class="top50hero row">
+            <div class="trsc-top-50-image col-lg-6">
+            </div>
+            <div class="trsc-top-50-text col-lg-6">
+                <div class="hero-content split-hero-content">
+                    <div class="hero-content-inner">
+                        <h3>What is the TrialScout Top 50?</h3>
+                        <p>
+                            The TrialScout Top 50 was established to recognize the elite clinical research programs driving American healthcare forward. Hospitals are selected based on their exceptional performance in quality, research
+                            experience, infrastructure and patient experience.
+                        </p>
+                        <p>
+                            With TrialScout’s comprehensive global data set, hospitals are chosen by their assembled composite score. Composite scores are compiled with data collected from all active United States clinical research institutions and linked to numerous, other publicly available data sets, as well as ongoing, real-time direct patient feedback.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="centerLogo">
+                <img src="~/Content/images/TrialScout_Award_FINAL.svg" />
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 top50left" style="text-align: center;">
+            <a href="~/Ratings/RateResearchCenter" target="_blank" class="btn btn-top50" role="button" style="margin: 0 auto;"><strong>Rate</strong> your research center</a>
+        </div>
+            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 top50right" style="text-align: center;">
+                <a href="~/Top50FAQ" target="_blank" class="btn btn-top50" role="button" style="margin: 0 auto;"> Didn't make the list? <strong>Learn more</strong></a>
+            </div>
+        </div>
+
+    <br />
+
+    @*<p style="color: #3B5CAD; font-size: 1.25rem;">
+        Congratulations on being recognized for your excellence in clinical research! The complete list of winners is currently under an embargo until July 31, 2019. On that date, we will announce the entire Top 50 and publish a nationwide press release.  In the meantime, please contact our Marketing Lead, <strong>Rachael Pollinger at rpollinger@trialscout.com</strong> to obtain licensing rights to this award and discuss specific, local press release opportunities.  We are happy for your organization and look forward to helping you spread the good news.
+    </p>*@
+
+
+    <h1 style="text-align:center;">TrialScout Top 50 for 2019</h1>
+
+        @foreach (var hospital in Model)
+        {
+            <button class="top50accordion">@Html.DisplayFor(modelItem => hospital.StatesAbre[hospital.State])</button>
+            <div class="panel top50panel">
+                @foreach (var subhospital in hospital.NameCityCenterId)
+                {
+                    string[] hosp = @subhospital.Split('+');
+                    <div class="row">
+                        <div class="col-8 col-sm-8 col-md-8 col-lg-7" style="margin: 5px 0;"><a href="~/ResearchCenter?id=@hosp[2]&alias=@hosp[0]&viewId=2" style="color:#0A5D66;font-weight:bold;" target="_blank">@hosp[0]</a></div>
+                        <div class="text-right col-4 col-sm-4 col-md-4 col-lg-5" style="margin: 5px 0;">@hosp[1]</div>
+                    </div>
+                    @*<div class="col-lg-1"></div>*@
+
+                }
+
+            </div>
+        }
+
+    <br/>
+    <div class="row">
+        <div class="col-12" style="text-align: center;">
+            <a href="~/Top50FAQ" class="btn btn-primary" role="button" style="margin: 0 auto;">FAQs</a>
+            <a href="~/Content/Resources/TrialScout_Awards_Licensing_Levels.pdf" target="_blank" class="btn btn-primary" role="button" style="margin: 0 auto;">Licensing Details</a>
+            <a href="~/ResearchCenter/ClaimResearchCenter" target="_blank" class="btn btn-primary" role="button" style="margin: 0 auto;">Schedule A Demo</a>
+        </div>
+    </div>
+</div>
+
+<style>
+
+    .panel .row:hover {
+        background-color: #ddd;
+    }
+</style>

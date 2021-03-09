@@ -1,0 +1,23 @@
+﻿<form method="GET" action="/search" autocomplete="off">
+    <input type="hidden" name="proximity" value="50" />
+    <div class="searchBar">
+        <div class="row homeSearch" style="background-color:#fff;">
+            <div class="col-sm-12 col-md-12 col-lg-2 searchbarlable">
+                <label id="homelabel">@Resources.FindTrialsFor</label>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-4 twitter-typeahead" id="scrollable-dropdown-menu">
+                <input type="text" name="condition" id="condition" class="form-control findTrialCondition" placeholder="@Resources.FindTrialConditionInputPlaceholder" autocomplete="off" required />
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-1 searchbarlable1">
+                <label id="homelabel">@Resources.NearLabel</label>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-4 twitter-typeahead">
+                <input type="text" name="location" id="location" class="form-control findTrialLocation" placeholder="@Resources.FindTrialLocationInputPlaceholder" autocomplete="off" required />
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-1 searchbarbtn">
+                <button style="height:100%;float:right;" class="btn btn-success searchbtn"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </div>
+</form>
+

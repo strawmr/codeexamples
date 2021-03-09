@@ -1,0 +1,195 @@
+﻿@model TrialScout.Web.ViewModels.EnhancedVerifiedRatingViewModel
+@{
+    /**/
+
+    ViewBag.Title = "Enhanced Research Center Rating";
+    Layout = "~/Views/Shared/_EnhancedLayout.cshtml";
+}
+<style>
+    .text-danger {
+        color: #dc3545;
+    }
+</style>
+
+@using (Html.BeginForm("enhancedverifiedrating", "enhancedrating", FormMethod.Post, new { @class = "trsc-ratings-form enhanced-survey" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.RatingId)
+
+    <div class="row">
+        <div class="col-12 text-center">
+            <h3>Only a few questions left!</h3>
+            @*<h6>The more you share about your experience, the more you help.</h6>*@
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 enhanced-q-width">
+            <p class="enhanced-q-text">Based on your visit today, how likely are you to return for your next visit?</p>
+            <div class="enhanced_radio returnRating">
+                <input type="text" id="returnRating" name="returnRating" class="d-none" />
+                <div class="starPoly emptyRating radio-container" id="returnStar1">
+                    <input id="eq1opt1" type="radio" name="return" value="vu">
+                    <label for="eq1opt1">Very Unlikely</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="returnStar2">
+                    <input id="eq1opt2" type="radio" name="return" value="u">
+                    <label for="eq1opt2">Unlikely</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="returnStar3">
+                    <input id="eq1opt3" type="radio" name="return" value="sl">
+                    <label for="eq1opt3">Somewhat Likely</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="returnStar4">
+                    <input id="eq1opt4" type="radio" name="return" value="l">
+                    <label for="eq1opt4">Likely</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="returnStar5">
+                    <input id="eq1opt5" type="radio" name="return" value="vl">
+                    <label for="eq1opt5">Very Likely</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-12 enhanced-q-width">
+            <p class="enhanced-q-text">How was the total wait time in the exam rooms and waiting area?</p>
+            <div class="enhanced_radio waitTimeRating">
+                <input type="text" id="waitTimeRating" name="waitTimeRating" class="d-none" />
+                <div class="starPoly emptyRating radio-container" id="waitTimeStar1">
+                    <input id="eq2opt1" type="radio" name="waitTime" value="vu">
+                    <label for="eq2opt1">Much longer than I expected</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="waitTimeStar2">
+                    <input id="eq2opt2" type="radio" name="waitTime" value="u">
+                    <label for="eq2opt2">A bit longer than I expected</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="waitTimeStar3">
+                    <input id="eq2opt3" type="radio" name="waitTime" value="sl">
+                    <label for="eq2opt3">About the same I expected</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="waitTimeStar4">
+                    <input id="eq2opt4" type="radio" name="waitTime" value="l">
+                    <label for="eq2opt4">A bit shorter than I expected</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="waitTimeStar5">
+                    <input id="eq2opt5" type="radio" name="waitTime" value="vl">
+                    <label for="eq2opt5">Much shorter than I expected</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+
+        <div class="col-12 enhanced-q-width">
+            <p class="enhanced-q-text">How did your visit compare to your expectations?</p>
+            <div class="enhanced_radio expectationRating">
+                <input type="text" id="expectationRating" name="expectationRating" class="d-none" />
+                <div class="starPoly emptyRating radio-container" id="expectationStar1">
+                    <input id="eq3opt1" type="radio" name="expectation" value="vu">
+                    <label for="eq3opt1">Much worse than I expected</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="expectationStar2">
+                    <input id="eq3opt2" type="radio" name="expectation" value="u">
+                    <label for="eq3opt2">A bit worse than I expected</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="expectationStar3">
+                    <input id="eq3opt3" type="radio" name="expectation" value="sl">
+                    <label for="eq3opt3">About the same as I expected</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="expectationStar4">
+                    <input id="eq3opt4" type="radio" name="expectation" value="l">
+                    <label for="eq3opt4">A bit better than I expected</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="expectationStar5">
+                    <input id="eq3opt5" type="radio" name="expectation" value="vl">
+                    <label for="eq3opt5">Much better than I expected</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-12 enhanced-q-width">
+            <p class="enhanced-q-text">How was the comfort and cleanliness of the office?</p>
+            <div class="enhanced_radio officeRating">
+                <input type="text" id="officeRating" name="officeRating" class="d-none" />
+                <div class="starPoly emptyRating radio-container" id="officeStar1">
+                    <input id="eq4opt1" type="radio" name="office" value="vu">
+                    <label for="eq4opt1">Much worse than I expected</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="officeStar2">
+                    <input id="eq4opt2" type="radio" name="office" value="u">
+                    <label for="eq4opt2">A bit worse than I expected</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="officeStar3">
+                    <input id="eq4opt3" type="radio" name="office" value="sl">
+                    <label for="eq4opt3">About the same as I expected</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="officeStar4">
+                    <input id="eq4opt4" type="radio" name="office" value="l">
+                    <label for="eq4opt4">A bit better than I expected</label>
+                </div>
+                <div class="starPoly emptyRating radio-container" id="officeStar5">
+                    <input id="eq4opt5" type="radio" name="office" value="vl">
+                    <label for="eq4opt5">Much better than I expected</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-12 enhanced-q-width">
+            <p class="enhanced-q-text">What mode of transportation did you use to get to your visit?</p>
+            @Html.TextBoxFor(model => model.TransportationRating, new { @class = "form-control", placeholder = "Transportation Method" })
+            @Html.ValidationMessageFor(model => model.TransportationRating, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-12 enhanced-q-width">
+            <p class="enhanced-q-text">What time was your appointment scheduled for today?</p>
+            @Html.TextBoxFor(model => model.AppointmentTime, new { @class = "form-control", placeholder = "HH:MM AM/PM" })
+            @Html.ValidationMessageFor(model => model.AppointmentTime, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-12 enhanced-q-width">
+            <p class="enhanced-q-text">What health condition were you seen for today?</p>
+            @Html.TextBoxFor(model => model.HealthCondition, new { @class = "form-control", placeholder = "Health Condition" })
+            @Html.ValidationMessageFor(model => model.HealthCondition, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 text-center">
+            <button id="finishButtonEnhanced" type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+
+
+
+}
+
+
+
+@section Scripts {
+    <script src="~/Scripts/EnhancedSurvey.js"></script>
+}
+

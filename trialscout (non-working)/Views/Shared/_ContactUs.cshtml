@@ -1,0 +1,153 @@
+﻿@model TrialScout.DAL.Entities.StudyContactForm
+
+@{
+    ViewBag.Title = "Contact Us";
+    Layout = "~/Views/Shared/_EmptyContactUsLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("ContactUsSubmit", ViewData["FormSource"] as string, FormMethod.Post, new { @class = "trsc-contact-form" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.ResearchCenterId)
+    @Html.HiddenFor(model => model.AliasId)
+    @Html.HiddenFor(model => model.AliasName)
+    @Html.HiddenFor(model => model.StudyId)
+    @Html.HiddenFor(model => model.ContactIP)
+    @Html.HiddenFor(model => model.LinkID)
+    @Html.HiddenFor(model => model.FormName)
+    @Html.HiddenFor(model => model.CreatedOn)
+    @Html.HiddenFor(model => model.Location)
+    @Html.HiddenFor(model => model.Proximity)
+    @Html.HiddenFor(model => model.Condition)
+    @Html.HiddenFor(model => model.ReqURL)
+<div id="formBox">
+    <div>
+        <span>
+
+            @if (Model.FormName == "ContactUsFromAlias")
+            {
+                <b class="contact-lbl">
+                    Please contact me about this site
+                </b>
+            }
+            @if (Model.FormName == "ContactUsFromResearchCenter")
+            {
+                <b class="contact-lbl">
+                    Please contact me about this research center
+                </b>
+            }
+            @if (Model.FormName == "ContactUsFromStudy")
+            {
+                <b class="contact-lbl">
+                    Please contact me about this study
+                </b>
+            }
+            @if (Model.FormName == "ContactUsGenericOrUnknown")
+            {
+                <b class="contact-lbl">
+                    Please contact me
+                </b>
+            }
+        </span>
+        <span style="float:right; padding: 0px 0px 0px 15px">
+            <a href="#" data-dismiss="modal"><img src="/Content/images/close.png" /></a>
+        </span>
+    </div>
+
+    <hr />
+
+    <div class="contact-div">
+        <b>Name</b><br />
+        @Html.TextBoxFor(model => model.ContactName, new { @class = "form-control", placeholder = "Name", required = "required" })
+        @Html.ValidationMessageFor(model => model.ContactName, "", new { @class = "text-danger" })
+    </div>
+    <div class="contact-div">
+        <b>@Html.LabelFor(model => model.EmailAddress)</b><br />
+        @Html.TextBoxFor(model => model.EmailAddress, new { @class = "form-control", placeholder = "Email Address", })
+        @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+
+    </div>
+    <div class="contact-div">
+        <b>@Html.LabelFor(model => model.PhoneNumber)</b><br />
+        @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control", placeholder = "Phone Number", required = "required" })
+        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="contact-div">
+        <b>Message</b><br />
+        @Html.TextAreaFor(model => model.ContactMessage, new { @class = "form-control", placeholder = "Message", required = "required" })
+        @Html.ValidationMessageFor(model => model.ContactMessage, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="contact-buffer">
+        <b>Are you human?</b>
+    </div>
+    <div class="contact-buffer">
+        <div class="g-recaptcha" data-sitekey="@System.Configuration.ConfigurationManager.AppSettings["ReCaptcha2.PublicKey"]"></div>
+    </div>
+    <div class="contact-buffer-small">
+        This step helps us keep spammers out of our inbox.
+    </div>
+    <div class="contact-buffer">
+        <div id="contactUsResult"></div>
+    </div>
+    <div class="contact-button-buffer">
+        <button type="submit" class="btn btn-primary rateCenter btn-sm bapButton align-content-center" id="ContactSubmitButton">Submit</button>
+    </div>
+    <div class="contact-buffer-bold-small">
+        <p><i>Submitting your contact information does not obligate you to participate in the trial.</i></p>
+    </div>
+</div>
+    <div id="messageBox" style="display:none;"></div>
+}
+
+<script>
+    //$(document).ready(function () {
+    //    $("#ContactSubmitButton").click(function (e) {
+    //        var recaptcha = $("#g-recaptcha-response").val();
+    //        if (recaptcha == "")
+    //        {
+    //            event.preventDefault();
+    //            ("Please check the ReCaptcha");
+    //        }
+    //        else
+    //        {
+    //            alert("hello");
+    //            $("#formBox").attr("style", "display:none;");
+    //            $("#messageBox").attr("style", "display:inline;");
+    //            alert("hello 2");
+
+    //            $.ajax({
+    //                type: "POST",
+    //                url: "/ResearchCenter/ContactUsSubmit/",
+    //                data: form.serialize(), // serializes the form's elements.
+    //                success: function (data) {
+    //                    $("#messageBox").html("Success " + data);
+    //                    alert("you didn't fail at life");
+    //                },
+    //                fail: function (data) {
+    //                    alert(data+"1");
+    //                }
+
+    //            });
+    //        }
+    //    });
+    //});
+
+
+    function contactUsEnable() {
+        $("form").submit(function (event) {
+            var recaptcha = $("#g-recaptcha-response").val();
+            if (recaptcha === "") {
+                event.preventDefault();
+                ("Please check the ReCaptcha");
+            } 
+        });
+    }
+</script>
+@section scripts {
+    <script src="~/Scripts/ContactUs.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=contactUsEnable"></script>
+}

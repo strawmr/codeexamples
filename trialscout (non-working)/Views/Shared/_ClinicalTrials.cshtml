@@ -1,0 +1,143 @@
+﻿@model List<TrialScout.Web.ViewModels.ResearchCenterTrialViewModel>
+@{
+    Layout = null;
+}
+
+@if (Model != null && Model.Count() > 0)
+
+{
+    <script>
+        $('.panel-heading').removeClass('active');
+        $('.panel-collapse').removeClass('show');
+    </script>
+
+    foreach (TrialScout.Web.ViewModels.ResearchCenterTrialViewModel trial in Model)
+    {
+        <div class="trialWidth">
+            <li>
+                @*<a href="/Search/TrialDetail?nctid=@trial.NctId&aliasId=@trial.AliasId&centerId=@trial.CenterID">  *@
+                <div class="row"><a href="/Search/TrialDetail?nctid=@trial.NctId&aliasId=@trial.AliasId&centerId=@trial.CenterId"><p class="title">@trial.BriefTitle</p></a></div>
+
+                <div class="row trial-icons">
+                    <div class="col-3 gender">
+                        <span>@trial.Gender</span>
+                        <div class="gender-background">
+                            @switch (trial.Gender)
+                            {
+                                case "Male":
+                                    <span id="male">
+                                        <img src="~/Content/images/icons/ic_wc_-1.svg" />
+                                    </span>
+                                    break;
+                                case "Female":
+                                    <span id="female">
+                                        <img src="~/Content/images/icons/ic_wc_24px.svg" />
+                                    </span>
+                                    break;
+                                default:
+                                    <span id="female">
+                                        <img src="~/Content/images/icons/ic_wc_24px.svg" />
+                                    </span>
+                                    <span id="male">
+                                        <img src="~/Content/images/icons/ic_wc_-1.svg" />
+                                    </span>
+                                    break;
+                            }
+
+                        </div>
+                    </div>
+                    <div class="col-3 age"><span>Age</span><div id="age-background">@trial.Age</div></div>
+                    @*<div class="col-2 phase">
+                            <div class="row" style="margin-left: 0;">
+
+                                @if (trial.Phase == null || trial.Phase.Contains('/'))
+                                {
+                                    if (trial.Phase == null || trial.Phase.Trim() == "N/A")
+                                    {
+                                        <span class="text-nowrap">
+                                            Phase
+                                        </span>
+                                    }
+                                    else
+                                    {
+
+                                        <span class="text-nowrap">
+                                            @String.Format($"{trial.Phase.Split('/')[0]}/{trial.Phase.Split('/')[1].Substring(6)}")
+                                        </span>
+
+
+                                    }
+
+                                }
+                                else
+                                {
+                                    if (trial.Phase.Trim() == "Early Phase 1")
+                                    {
+                                        <span class="text-nowrap">
+                                            @String.Format("Phase 1")
+                                        </span>
+                                    }
+                                    else
+                                    {
+
+                                        <span class="text-nowrap">
+                                            @trial.Phase
+                                        </span>
+                                    }
+                                }
+
+                                <div class="phase-background">
+                                    @if (trial.GetPhase.Trim() == "N/A")
+                                    {
+                                        <div id="not-applicable">N/A</div>
+                                    }
+                                    else
+                                    {
+                                        for (var i = 1; i <= Convert.ToInt32(trial.GetPhase); i++)
+                                        {
+                                            <span id="+Convert.ToString(i)+">
+                                                <img src="/Content/images/icons/ic_chevron_right_24px.svg" />
+                                            </span>
+                                        }
+                                    }
+                                </div>
+                                @*<a href="https://blog.trialscout.com/clinical-trials-patients/clinical-trials-consist-of-four-phases-what-are-they" target="_blank">
+                                    <span class="trsc-info-icon">
+                                        <span class="fa fa-info"></span>
+
+                                    </span>
+                                </a
+                            </div>
+                        </div>*@
+                    <div class="success col-5">
+                        <div>
+                            <a href="" class="openModal btn btn-outline-success btn-block"
+                               data-studyid="@trial.NctId" data-toggle="modal" data-target="#studyModal">
+
+                                <span class="text-nowrap interested">I'm interested</span>
+                            </a>
+                            <a href="/Search/TrialDetail?nctid=@trial.NctId&aliasId=@trial.AliasId&centerId=@trial.CenterId" style="margin: 8px 0;" class="btn btn-outline-success btn-block details"><span class="text-nowrap">@Resources.ViewDetailsButton</span></a>
+                        </div>
+
+                    </div>
+                </div>
+            </li>
+        </div>
+
+    }
+
+}
+else if (Model != null)
+{
+    <p>No Results found</p>
+}
+<script type="text/javascript">
+@if (Model != null && Model.Count() > 0)
+{
+     <text>$("#TotalTrialCount").val("@Model[0].Total");</text>
+}
+else
+{
+    <text>$("#TotalTrialCount").val("0");</text>
+}
+</script>

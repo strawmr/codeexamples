@@ -1,0 +1,165 @@
+﻿@model TrialScout.Web.ViewModels.VerifiedRatingViewModel
+@{
+    ViewBag.Title = "Verified Research Center Rating";
+    Layout = "~/Views/Shared/_RatingLayout.cshtml";
+}
+<style>
+    .text-danger {
+        color: #dc3545;
+    }
+</style>
+<div class="progress-parent">
+    <section class="progress-section">
+        <ol class="custom-progressbar">
+            <li class="is-complete"><span>Page 1 of 3</span></li>
+            <li class="is-active"><span>Page 2 of 3</span></li>
+            <li><span>Page 3 of 3</span></li>
+        </ol>
+    </section>
+    </div>
+
+
+    @using (Html.BeginForm("verifiedrating", "ratings", FormMethod.Post, new { @class = "trsc-ratings-form", autocomplete = "off" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.RatingId)
+
+        <div class="row">
+            <div class="col-12 text-center">
+                <h3>@Resources.WedLoveToHearMoreFromYou</h3>
+                <h6>@Resources.TheMoreYouShareAboutYourExperienceTheMoreYouHelp</h6>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="row">
+                    <div class="col-md-6 twitter-typeahead" id="scrollable-dropdown-menu">
+                        @Html.TextBoxFor(model => model.NameOfTrial, new { @class = "form-control", placeholder = Resources.DiseaseOrConditionBar + "*", @id = "condition", autocomplete = "off", required = "required" })
+                        @Html.ValidationMessageFor(model => model.NameOfTrial, "", new { @class = "text-danger", })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.DropDownListFor(model => model.TrialYear, (IEnumerable<SelectListItem>)ViewBag.TrialYear, Resources.PickYearDropdown, new { @class = "form-control yearHeight", placeholder = "Pick the year from the list" })
+
+                        @Html.ValidationMessageFor(model => model.TrialYear, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 text-center">
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.DropDownListFor(model => model.Caregiver, (IEnumerable<SelectListItem>)ViewBag.CaregiverList, Resources.CaregiverOrParticipantDropdown, new { @class = "form-control yearHeight", placeholder = "Are you a caregiver or participant?" })
+                    </div>
+                    <div class="col-md-6">
+
+                        @Html.DropDownListFor(model => model.PastOrPresent, (IEnumerable<SelectListItem>)ViewBag.PastOrPresentPatient, Resources.PastOrPresentDropdown, new { @class = "form-control yearHeight", placeholder = "Are you a past or present participant?" })
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col">&nbsp;</div>
+        </div>
+
+        <div class="row trsc-rating-page">
+            <div class="col-12 col-lg-8 trsc-ratings-item">
+                <p>@Resources.HowWellDidTheResearchStaffExplainTheClinicalTrialsProcess</p>
+            </div>
+            <div class="col-12 col-lg-4 trsc-ratings-item">
+                <div class="explainRating">
+                    <input type="text" id="explainRating" name="explainRating" class="d-none" />
+                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "explainStar1", ClassName = "emptyRating", Title = Resources.PoorOption, Height = 35, Width = 45, ViewBoxHeight = 55, ViewBoxWidth = 65 })
+                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "explainStar2", ClassName = "emptyRating", Title = Resources.FairOption, Height = 35, Width = 45, ViewBoxHeight = 55, ViewBoxWidth = 65 })
+                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "explainStar3", ClassName = "emptyRating", Title = Resources.AverageOption, Height = 35, Width = 45, ViewBoxHeight = 55, ViewBoxWidth = 65 })
+                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "explainStar4", ClassName = "emptyRating", Title = Resources.VeryGoodOption, Height = 35, Width = 45, ViewBoxHeight = 55, ViewBoxWidth = 65 })
+                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "explainStar5", ClassName = "emptyRating", Title = Resources.ExcellentOption, Height = 35, Width = 45, ViewBoxHeight = 55, ViewBoxWidth = 65 })
+                    <div id="explainRatingDescription" class="trsc-star-rating-text"></div>
+                </div>
+            </div>
+            @*<div class="col">
+                    @Html.TextBoxFor(model => model.ExplainRatingDescription, new { @class = "invisible" })
+                    @Html.ValidationMessageFor(model => model.ExplainRatingDescription, "", new { @class = "text-danger" })
+                </div>*@
+        </div>
+
+        <div class="row trsc-rating-page">
+            <div class="col-12 col-lg-8 trsc-ratings-item">
+                <p>@Resources.HowWellDidTheResearchStaffListenAndAnswerQuestions</p>
+            </div>
+            <div class="col-12 col-lg-4 trsc-ratings-item">
+                <div class="listenRating">
+                    <input type="text" id="listenRating" name="listenRating" class="d-none" />
+                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "listenStar1", ClassName = "emptyRating", Title = Resources.PoorOption, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "listenStar2", ClassName = "emptyRating", Title = Resources.FairOption, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "listenStar3", ClassName = "emptyRating", Title = Resources.AverageOption, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "listenStar4", ClassName = "emptyRating", Title = Resources.VeryGoodOption, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "listenStar5", ClassName = "emptyRating", Title = Resources.ExcellentOption, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                    <div id="listenRatingDescription" class="trsc-star-rating-text"></div>
+                </div>
+            </div>
+            @*<div class="col">
+                    @Html.TextBoxFor(model => model.ListenRatingDescription, new { @class = "invisible" })
+                    @Html.ValidationMessageFor(model => model.ListenRatingDescription, "", new { @class = "text-danger" })
+                </div>*@
+        </div>
+
+        <div class="row trsc-rating-page">
+            <div class="col-12 col-lg-8 trsc-ratings-item">
+                <p>@Resources.WasTheTotalWaitTimeInWaitingAndExamRoomsAppropriate</p>
+            </div>
+            <div class="col-12 col-lg-4 trsc-ratings-item">
+                <div class="waitTimeRating">
+                    <input type="text" id="waitTimeRating" name="waitTimeRating" class="d-none" />
+                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "waitTimeStar1", ClassName = "emptyRating", Title = Resources.PoorOption, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "waitTimeStar2", ClassName = "emptyRating", Title = Resources.FairOption, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "waitTimeStar3", ClassName = "emptyRating", Title = Resources.AverageOption, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "waitTimeStar4", ClassName = "emptyRating", Title = Resources.VeryGoodOption, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "waitTimeStar5", ClassName = "emptyRating", Title = Resources.ExcellentOption, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                    <div id="waitTimeRatingDescription" class="trsc-star-rating-text"></div>
+                </div>
+            </div>
+            @*<div class="col">
+                    @Html.TextBoxFor(model => model.WaitTimeRatingDescription, new { @class = "invisible" })
+                    @Html.ValidationMessageFor(model => model.WaitTimeRatingDescription, "", new { @class = "text-danger" })
+                </div>*@
+        </div>
+
+        <div class="row trsc-rating-page">
+            <div class="col-12 col-lg-8 trsc-ratings-item">
+                <p>@Resources.HowWasTheOfficeEnvironmentCleanlinessAccessibilityComfortEtc</p>
+            </div>
+            <div class="col-12 col-lg-4 trsc-ratings-item">
+                <div class="officeRating">
+                    <input type="text" id="officeRating" name="officeRating" class="d-none" />
+                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "officeStar1", ClassName = "emptyRating", Title = Resources.PoorOption, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "officeStar2", ClassName = "emptyRating", Title = Resources.FairOption, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "officeStar3", ClassName = "emptyRating", Title = Resources.AverageOption, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "officeStar4", ClassName = "emptyRating", Title = Resources.VeryGoodOption, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "officeStar5", ClassName = "emptyRating", Title = Resources.ExcellentOption, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                    <div id="officeRatingDescription" class="trsc-star-rating-text"></div>
+                </div>
+            </div>
+            @*<div class="col">
+                    @Html.TextBoxFor(model => model.OfficeRatingDescription, new { @class = "invisible" })
+                    @Html.ValidationMessageFor(model => model.OfficeRatingDescription, "", new { @class = "text-danger" })
+                </div>*@
+        </div>
+
+        <div class="row">
+            <div class="col-12 text-center">
+                <button id="sendButton" type="submit" class="btn btn-primary">@Resources.NextButton</button>
+            </div>
+        </div>
+
+    }
+
+
+
+    @section Scripts {
+        <script src="~/Scripts/VerifiedReview.js"></script>
+    }
+

@@ -1,0 +1,28 @@
+﻿@model TrialScout.Web.ViewModels.AdCitiesViewModel
+
+<div class="row form-group adCityGroup">
+    <div class="row">
+        @{Guid id = Guid.NewGuid();}
+        <input type="hidden" name="AdCities.Index" value="@id" />
+        <div class="col-9">
+            @if (Model.AdCityId.HasValue)
+            {
+                @Html.TextBoxFor(m => Model.Location, new { @class = "form-control cityLU", @placeholder = "City", Name = $"AdCities[{id}].Location", @readonly = "readonly" })
+            }
+            else
+            {
+                @Html.TextBoxFor(m => Model.Location, new { @class = "form-control cityLU", @placeholder = "City", Name = $"AdCities[{id}].Location" })
+            }
+        </div>
+        <div class="col-3">
+            @Html.HiddenFor(m => m.AdCityId, new { Name = $"AdCities[{id}].AdCityId" })
+            <a href="#" class="btn btn-danger removeCity" data-id="@Model.AdCityId" data-name="@Model.Location">Delete</a>
+        </div>
+    </div>
+    <div class="row">
+        <label class="col-12" style="font-size: medium;">
+            @Html.CheckBoxFor(m => Model.IncreaseRadius, new { Name = $"AdCities[{id}].IncreaseRadius" })
+            <strong>@System.Web.Configuration.WebConfigurationManager.AppSettings["IncreaseRadiusLabelVerbiage"]</strong>
+        </label>
+    </div>
+</div>

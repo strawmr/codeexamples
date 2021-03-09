@@ -1,0 +1,83 @@
+﻿@model  List<TrialScout.Web.ViewModels.Top10ConditionsViewModel>
+
+<div class="wrapper center-block">
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default" style="max-height:100%">
+            <div class="top10-area panel-heading active" role="tab" id="headingTwo">
+                <h5 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        @Resources.Top10ConditionsDropdown        
+                    </a>  
+                </h5>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse response-width show" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="panel-body">
+                        @{ int countPerColumn = Model.Count / 2;}
+
+                    <div class="row">
+                        @if (Model.Count <= 5)
+                        {
+                            <div class="col-12">
+                                <ul id="topTenCondition">
+                                    @foreach (var topTen in Model)
+                                    {
+                                       <li><a href="#"> <span>@topTen.Condition</span> <span>(@topTen.TrialCount)</span> </a></li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-6 col-12">
+                                <ul id="topTenCondition">
+                                    @foreach (var topTen in Model.Take(countPerColumn))
+                                    {
+                                        <li><a href="#" ><span>@topTen.Condition</span> <span>(@topTen.TrialCount)</span></a></li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <ul id="topTenCondition2">
+                                    @foreach (var topTen in Model.Skip(countPerColumn))
+                                    {
+                                        <li><a href="#"><span>@topTen.Condition</span> <span>(@topTen.TrialCount)</span></a></li>
+                                    }
+                                </ul>
+                            </div>
+
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .panel-body ul {
+        list-style-type:  disc;
+    }
+    .panel-body ul li {
+        margin: 10px 14px !important;
+    }
+
+    .panel-body > ul > li {
+        font-size : 14px;
+        
+    }
+
+
+
+    @@media only screen and (min-width:1000px) {
+        .response-width {
+            width: 500px;
+        }
+    }
+
+    @@media only screen and (max-width:755px){
+        .panel-body ul {
+            margin-top:0;
+        }
+    }
+</style>

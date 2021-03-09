@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "Clinical Trial Patient Engagement | TrialScout™";
+    Layout = "~/Views/Shared/_SearchOnly.cshtml";
+}
+
+
+<style>
+    .trsc-logo-full-opti {
+        max-width: 250px;
+    }
+</style>
+
+<div class="hero-image">
+    <div class="row trsc-masthead trsc-homepage">
+        <div class="col-12 col-lg-3 trsc-logo-full-opti">
+            <a href="~/">
+                <img src="~/Content/images/FinNoTagTS.svg" class="img-fluid" alt="TrialScout" border="0" />
+            </a>
+            <p class="trsc-version"></p>
+        </div>
+    </div>
+
+
+    <div class="container-fluid header_part">
+        <div class="container">
+            <div class="row">
+                <h2 id="find" class="heroText text-center">Your Expert Guide to Clinical Trials</h2>
+            </div>
+        </div>
+        <div class="container header_second">
+            <div class="row">
+                <h2 id="find">Find the right research center for you</h2>
+                <div class="col-12 headTXT">
+                    @Html.Partial("_FindClinicalTrialHome")
+                </div>
+            </div>
+        </div>
+
+        <div class="container header_second_rate">
+
+            <div class="row">
+                @*<h2 id="rate">Rate your clinical trial experience</h2>
+                <div class="col-12 headTXT">
+                    @Html.Partial("_RatingHome")
+                </div>*@
+            </div>
+        </div>
+        <div class="container header_third">
+            <div class="row">
+                @*<div class="col-sm-1 col-md-1 col-lg-3"></div>
+                <div class="col-sm-10 col-md-10 col-lg-9">
+                    <div class="row">
+                        <div class="col-sm-5 offset-sm-7 col-md-8 offset-md-5 col-lg-5 offset-lg-7 headthirdTXT" style="padding-right: 0px;">
+                            <p style="text-align:right;">Don't see your research center? <a href="~/Home/ContactUs">Contact Us</a></p>
+                        </div>
+                    </div>
+                </div>*@
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/Home.js"></script>
+}

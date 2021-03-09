@@ -1,0 +1,139 @@
+﻿@model TrialScout.Web.ViewModels.AuthenticatedReviewViewModel
+@{
+    ViewBag.Title = "Authenticated Research Center Rating";
+    Layout = "~/Views/Shared/_RatingLayout.cshtml";
+}
+<style>
+    .text-danger {
+        color: #dc3545;
+    }
+</style>
+<div class="progress-parent">
+    <section class="progress-section">
+        <ol class="custom-progressbar">
+            <li class="is-complete"><span>Page 1 of 3</span></li>
+            <li class="is-complete"><span>Page 2 of 3</span></li>
+            <li class="is-active"><span>Page 3 of 3</span></li>
+        </ol>
+    </section>
+</div>
+
+    <form id="ratingForm" class="trsc-ratings-form" autocomplete="off">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.RatingId)
+
+        <div class="row">
+            <div class="col text-center" @*style="padding:30px 0 60px 0;"*@>
+                <h5 style="color: #6576B9">@Resources.YourFeedbackHelps</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-lg-6 text-center">
+                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", placeholder = Resources.FirstNameBar, autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-12 col-lg-6 text-center">
+                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", placeholder = Resources.LastNameBar, autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-lg-6 text-center">
+                @Html.TextBoxFor(model => model.EmailAddress, new { @class = "form-control", placeholder = Resources.EmailBar, autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-12 col-lg-6 text-center">
+                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", placeholder = Resources.PhoneNumberBar, autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col text-center">
+                <p class="trsc-ratings-feedback-msg">@Resources.IfYouWouldLikeToLeaveAPubliclyPostedComment<br /> @Resources.YourNamePhoneNumberAndEmailAddress</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col text-center">
+                @Html.TextAreaFor(model => model.Comment, new { @class = "form-control", @rows = 8, placeholder = Resources.ShareDetailsOfWhatYouLikedOrWhatYouDidNotLikeAboutYourExperience })
+                @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col text-center">
+                @Html.CheckBoxFor(model => model.ShouldContact) @Resources.YesIAmWillingToBeContactedByMyClinicalResearchCenterAboutMyFeedback
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-12 text-center">
+                <button id="finishButton" type="button" class="btn btn-primary">@Resources.NextButton</button>
+            </div>
+        </div>
+
+    </form>
+
+
+    <div id="confirmationModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@Resources.ThankYouForYourReview</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="followUpForm">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <p>@Resources.DidYouFindTrialScoutToBeHelpful</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-8 text-center">
+                                <div class="trialScoutRating">
+                                    <input type="text" id="trialScoutRating" name="trialScoutRating" class="d-none" />
+                                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "trialScoutStar1", ClassName = "emptyRating", Title = Resources.PoorOption, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "trialScoutStar2", ClassName = "emptyRating", Title = Resources.FairOption, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "trialScoutStar3", ClassName = "emptyRating", Title = Resources.AverageOption, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "trialScoutStar4", ClassName = "emptyRating", Title = Resources.VeryGoodOption, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                                    @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "trialScoutStar5", ClassName = "emptyRating", Title = Resources.ExcellentOption, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                                    <div id="trialScoutRatingDescription" class="trsc-star-rating-text"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2"></div>
+                        </div>
+
+                        @*<input type="hidden" name="ShouldContact" value="false" />*@
+
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <button type="submit" id="submitFollowUp" class="btn btn-primary">@Resources.SubmitButton</button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 text-center rateDecline">
+                                @Html.ActionLink(@Resources.ReturnToHomePageLink, "Index", "Home")
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    @section Scripts {
+        <script src="~/Scripts/AuthenticatedReview.js"></script>
+    }

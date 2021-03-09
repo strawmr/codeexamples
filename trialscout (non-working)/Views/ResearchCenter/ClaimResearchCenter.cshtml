@@ -1,0 +1,104 @@
+﻿@model TrialScout.Web.ViewModels.ClaimResearchCenterViewModel
+
+@{
+    ViewBag.Title = "Claim Your Research Center";
+    Layout = "~/Views/Shared/_LayoutContentPages.cshtml";
+}
+
+<div class="trsc-page-bg-01">
+    <div class="col-12">
+        <h2 class="text-center" style="padding-top:5%;">For Research Centers</h2>
+        @*<h6 class="text-center">Are you the Authorized Agent representing a Research Center? <br /> Claim your center to update your profile. </h6>*@
+        <div class="container">
+            <p>TrialScout is driven to transform the experience of finding and participating in clinical trials. Existing patient platforms are either too technical or are from untrusted sources. This can overwhelm and intimidate patients before they can even consider a clinical trial as a care option.</p>
+            <p>Our intuitive interface makes finding clinical trials a straightforward, low-stress experience. We’re committed to providing transparent, non-biased information to patients that they can easily understand.</p>
+            <p>TrialScout provides a way for your research center to:</p>
+            <ul>
+                <li>Highlight your clinical trials to motivated patients in your area</li>
+                <li>Promote and enhance your research center's brand</li>
+                <li>Gain valuable feedback from patients</li>
+            </ul>
+            <p> Learn how we can work together to improve the patient’s experience of participating in clinical trials. We will contact you shortly to <a href="~/Home/ContactUs">set up a demo.</a></p>
+        </div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.ResearchCenter)
+            @Html.HiddenFor(model => model.ResearchCenterId)
+
+            <div class="form-horizontal trsc-partner-form">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="row">
+                    <div class="col-12">
+                        @Html.TextBoxFor(model => model.AgentEmailAddress, new { @class = "form-control", @placeholder = "Email Address" })
+                        @Html.ValidationMessageFor(model => model.AgentEmailAddress, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        @Html.TextBoxFor(model => model.AgentName, new { @class = "form-control", @placeholder = "Name" })
+                        @Html.ValidationMessageFor(model => model.AgentName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        @Html.TextBoxFor(model => model.AgentTitle, new { @class = "form-control", @placeholder = "Job Title" })
+                        @Html.ValidationMessageFor(model => model.AgentTitle, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        @Html.TextBoxFor(model => model.ResearchCenterDisplayName, new { @class = "form-control", placeholder = "Your Research Center" , autocomplete = "off"})
+                        @Html.ValidationMessageFor(model => model.ResearchCenter, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 text-center">
+                        @*<p>
+                            Don't see your research center? <a href="~/Home/ContactUs">Contact us</a>
+                        </p>*@
+                        <div>
+                            <input id="locateCenter" type="submit" value="Submit" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                    <div class="col-12 text-center">
+                        <p>Already have an account? <a href="/account/login"> Log In.</a></p>
+                    </div>
+                </div>*@
+
+            </div>
+        }
+    </div>
+</div>
+<div class="row trsc-ads-row">
+    <div class="col-12" id="Ads">
+    </div>
+</div>
+<script type="text/javascript" src="~/Scripts/slick.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.horizontalAds').slick({
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 4000,
+
+        });
+    });
+</script>
+@*<div class="row trsc-page-bg-02">
+        <div class="col-12">
+            @Html.Partial("_WelcomeToTheNest")
+        </div>
+    </div>*@
+
+@section Scripts {
+    <script src="~/Scripts/ClaimResearchCenter.js"></script>
+}

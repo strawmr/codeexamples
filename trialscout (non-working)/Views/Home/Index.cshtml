@@ -1,0 +1,204 @@
+﻿@{
+    ViewBag.Title = "Clinical Trial Patient Engagement | TrialScout™";
+    Layout = "~/Views/Shared/_Home.cshtml";
+}
+
+@section metatags{
+        <meta name="description" content="TrialScout helps you find clinical trials and choose the right research center by providing unique, objective ratings and reviews from people just like you." />
+}
+
+<div class="hero-image">
+    <div class="info-bar"><strong>TrialScout<sup style="font-size:x-small">TM</sup> @Resources.Top50Announcement</strong>  <a href="~/Top50Hospitals" target="blank_" class="btn-primary" style="padding: 0px 10px;background-color: transparent;border-color: white;border-width: medium;border-style: solid;text-decoration: none;white-space: nowrap;"><strong>@Resources.LearnMoreButton</strong></a></div>
+    <div class="row trsc-masthead trsc-homepage">
+        <div class="col-12 col-lg-3 trsc-logo-full">
+            <a href="~/">
+                <img src="~/Content/images/FinNoTagTS.svg" class="img-fluid" alt="TrialScout" border="0" />
+            </a>
+            <p class="trsc-version"></p>
+        </div>
+        <div class="col-12 col-lg-9 trsc-partner-login-home">
+            @if (Request.IsAuthenticated)
+            {
+                <div class="row rightbox">
+                    <div class="col-12 col-lg-6 trsc-admin-menu trsc-admin-home float-right">
+                        @Html.Partial("_NavAdminMenuHome")
+                    </div>
+                    <div class="col-12 col-lg-6 float-right" style="margin-top:6px;">
+                        @Html.Partial("_LoginPartialHome")
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row rightbox">
+                    <div class="col-12 col-lg-8 col-xl-9 trsc-admin-menu trsc-admin-home float-right">
+                        @Html.Partial("_NavAdminMenuHome")
+                    </div>
+                    <div class="col-12 col-lg-4 col-xl-3 trsc-login float-right">
+                        @Html.Partial("_LoginPartialHome")
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+
+    <div class="container-fluid header_part" id="container">
+        <div class="container">
+            <div class="row">
+                <h2 id="find" class="heroText text-center">@Resources.HomeAnnouncement</h2>
+            </div>
+        </div>
+        <div class="container header_second">
+            <div class="row">
+                <h2 id="find">@Resources.ResearchCenterSearchHeading</h2>
+                <div class="col-12 headTXT">
+                    @Html.Partial("_FindClinicalTrialHome")
+                </div>
+            </div>
+        </div>
+
+        <div class="container header_second_rate">
+
+            <div class="row">
+                <h2 id="rate">@Resources.RatingSearchHeading</h2>
+                <div class="col-12 headTXT">
+                    @Html.Partial("_RatingHome")
+                </div>
+            </div>
+        </div>
+        <div class="container header_third">
+            <div class="row">
+                <div class="col-sm-1 col-md-1 col-lg-3"></div>
+                <div class="col-sm-10 col-md-10 col-lg-9">
+                    <div class="row">
+                        <div class="col-sm-5 offset-sm-7 col-md-8 offset-md-5 col-lg-5 offset-lg-7 headthirdTXT" style="padding-right: 0px;">
+                            <p style="text-align:right;">Don't see your research center? <a href="~/Home/ContactUs">@Resources.ContactUsLink</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="container body-content">
+    <div class="row trsc-ads-row">
+        <div class="col-12" id="Ads">
+        </div>
+    </div>
+    <script type="text/javascript" src="~/Scripts/slick.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.horizontalAds').slick({
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 4000,
+
+            });
+        });
+    </script>
+    <div class="row trsc-nest-row">
+        <div class="col-12 nest-section text-center">
+            <h2 class="trsc-heading-oblique" style="margin:auto;">TrialScout is here to guide you on your clinical trial journey</h2>
+            <h6 class="bold" style="margin-bottom:60px;">TrialScout transforms the experience of finding and participating in clinical trials for patients everywhere</h6>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6 nest-section">
+            <h2 class="trsc-shadow">Why Choose a Clinical Trial?</h2>
+            <p>
+                Many patients aren't aware that clinical trials are a care
+                option. However, clinical trials ensure access to their
+                physician, which helps reduce any gaps in care. In fact,
+                95% of people who have taken part in a clinical trial
+                would consider doing it again.<sup>2</sup>
+            </p>
+            <a href="https://blog.trialscout.com/clinical-trials-patients/why-you-should-consider-participating-in-clinical-trials" class="btn btn-primary">Learn More</a>
+        </div>
+        <div class="col-12 col-md-6 nest-section">
+            <iframe src="https://www.youtube.com/embed/3Mc0brOyZXA?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 nest-section nest-pathway-01">
+            <img src="~/Content/images/owl-path-01.svg" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6 nest-section">
+            <iframe src="https://www.youtube.com/embed/5S1yNFD4is4?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <div class="col-12 col-md-6 nest-section">
+            <h2 class="trsc-shadow">TrialScout Is Here to Help You.</h2>
+            <p>
+                People have a hard time learning about clinical trials,
+                and are hesitant to ask questions. People need a
+                singular resource, and TrialScout is here to guide you on
+                your clinical trial journey.
+            </p>
+            <a href="~/Home/FindClinicalTrial" class="btn btn-primary">Find a Clinical Trial</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 nest-section nest-pathway-02">
+            <img src="~/Content/images/owl-path-02.svg" />
+        </div>
+    </div>
+    <div class="col-12 nest-section text-center" id="trsc-nest">
+        @Html.Partial("_WelcomeToTheNest")
+    </div>
+</div>
+
+<script type="text/javascript">
+    var tag = document.createElement('script');
+    tag.id = 'iframe-demo';
+    tag.src = 'https://www.youtube.com/iframe_api';
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var player;
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('LearnAboutPlayer', {
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
+            }
+        });
+    }
+    function onPlayerReady(event) {
+        console.log('ready');
+        $('#trsc-yt-modal').on('hidden.bs.modal', function () {
+            pauseVid();
+        });
+
+        $('#trsc-yt-modal').on('shown.bs.modal', function () {
+            playVid();
+        });
+        //document.getElementById('existing-iframe-example').style.borderColor = '#FF6D00';
+        //player.playVideo();
+    }
+    function onPlayerStateChange(event) {
+        //setTimeout(function () { player.pauseVideo(); }, 6000);
+        //changeBorderColor(event.data);
+    }
+
+    function pauseVid() {
+        player.pauseVideo();
+    }
+
+    function playVid() {
+        player.playVideo();
+    }
+</script>
+<script>
+    $(".info-bar").delay(1000).slideDown(500);
+</script>
+@section scripts
+{
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="~/Scripts/Home.js"></script>
+}

@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <!-- Anti-flicker snippet (recommended)  -->
+    <style>
+        .async-hide {
+            opacity: 0 !important
+        }
+    </style>
+    <script>
+        (function (a, s, y, n, c, h, i, d, e) {
+            s.className += ' ' + y; h.start = 1 * new Date;
+            h.end = i = function () { s.className = s.className.replace(RegExp(' ?' + y), '') };
+            (a[n] = a[n] || []).hide = h; setTimeout(function () { i(); h.end = null }, c); h.timeout = c;
+        })(window, document.documentElement, 'async-hide', 'dataLayer', 4000,
+            { 'GTM-5M242F3': true });</script>
+    <!-- Start of Google Analytics Code -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-124616186-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-124616186-1', { 'optimize_id': 'GTM-5M242F3' });
+    </script>
+    <!-- End of Google Ananltyics Code -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @RenderSection("metatags", false)
+    <title>@ViewBag.Title</title>
+    <link rel="icon" href="~/Content/images/icons/TS-Logomark.png" type="image/png">
+    @Styles.Render("~/bundles/minified")
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/popper")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/datatables")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/custom")
+    @Scripts.Render("~/bundles/AllExceptHome")
+    @RenderSection("scripts", required: false)
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,700|Montserrat:400,300i,700" rel="stylesheet">
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
+            integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
+            crossorigin="anonymous">
+    </script>
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+    @*<button onclick="topFunction()" id="backTotop" title="Go to top"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>*@
+
+    <div class="row trsc-masthead-pages">
+        <div class="col-12 col-lg-3 trsc-logo-full">
+            <a href="~/"><img src="~/Content/images/TSNoTagLogo.svg" class="img-fluid" alt="TrialScout" border="0" /></a>
+        </div>
+        <div class="col-12 col-lg-9 trsc-partner-login">
+            <div class="row">
+                <div class="col-12 trsc-mobile-nav">
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 trsc-main-menu">
+                    @Html.Partial("_NavMainMenu")
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="trsc-top-gradient">
+        <div class="body-content">
+            @RenderBody()
+        </div>
+    </div>
+
+    <div class="row trsc-ads-row">
+        <div class="container">
+            <div class="col-12" id="Ads">
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="~/Scripts/slick.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.horizontalAds').slick({
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 4000,
+
+            });
+        });
+    </script>
+    <div class="row trsc-bottom-gradient trsc-footer-expander-row">
+        <div class="container">
+            <div class="col-12 nest-section">
+                @Html.Partial("_WelcomeToTheNest")
+            </div>
+        </div>
+        <div class="row trsc-footer-expander-row">
+            <div class="col-12">&nbsp;</div>
+        </div>
+    </div>
+    @Html.Partial("_Footer")
+    <div class="trsc-owl-chat">
+        <span id="hs-script-loader" name="hs-script-loader"></span>
+    </div>
+    <!-- Start of HubSpot Embed Code -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/3986404.js"></script>
+    <!-- End of HubSpot Embed Code -->
+
+</body>
+</html>
+
+<script>
+    $(function () {
+        $(document).on('click', '#owl-chat', function () {
+            eval($('#hs-script-loader'));
+        });
+    });
+</script>

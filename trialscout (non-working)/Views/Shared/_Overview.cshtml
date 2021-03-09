@@ -1,0 +1,89 @@
+﻿@model TrialScout.Web.ViewModels.ResearchCenterDetailsViewModel
+
+
+@if (Model.IsPublished || Model.IsSiteOwner || User.IsInRole("Administrator"))
+{
+    <div class="trsc-profile-bio">
+        @if (Model.Summary == null || Model.Summary.Trim() == "")
+        {
+            <p style="font-size: x-large;">The site has not provided information to us.</p>
+        }
+        else
+        {
+            @Html.Raw(Model.Summary)
+        }
+    </div>
+}
+else
+{
+    <p style="font-size: x-large;">The site has not provided information to us.</p>
+}
+<hr />
+
+@if (!Model.IsPublished)
+{
+    <div class="col-12 col-md-12 text-center">
+        <h5>Is this your research center? Click here to become a partner.</h5>
+        <a href="/ResearchCenter/ClaimResearchCenter?name=@Model.LocationName" class="btn btn-primary">Claim This Research Center</a>
+    </div>
+}
+
+
+@*@if (Model.IsAliasTop50 && !Model.IsAliasSCRS)
+    {
+        <h3 class="">Awards and Honors</h3>
+        <a href="~/Top50Hospitals">
+            <img src="~/Content/images/TrialScout_Award_FINAL.svg" alt="Top 50 Badge" style="max-width:125px;" />
+        </a>
+        <hr />
+    }
+
+    else if (Model.IsAliasSCRS && !Model.IsAliasTop50)
+    {
+        <h3 class="">Memberships</h3>
+        <a href="http://info.trialscout.com/scrs-members" target="_blank">
+            <img src="~/Content/images/SCRSbadge.svg" alt="SCRS Badge" style="max-width:75px;" />
+        </a>
+        <hr />
+    }
+
+    else if (Model.IsAliasSCRS && Model.IsAliasTop50)
+    {
+        <h3 class="">Memberships and Honors</h3>
+        <a href="~/Top50Hospitals" style="margin: 10px;" target="_blank">
+            <img src="~/Content/images/TrialScout_Award_FINAL.svg" alt="Top 50 Badge" style="max-width:125px;" />
+        </a>
+        <a href="http://info.trialscout.com/scrs-members" style="margin: 10px;" target="_blank">
+            <img src="~/Content/images/SCRSbadge.svg" alt="SCRS Badge" style="max-width:75px;" />
+        </a>
+        <hr />
+    }*@
+
+
+@if (Model.IsPublished || Model.IsSiteOwner || User.IsInRole("Administrator"))
+{
+
+    if (Model.ResearchCenterDepartments != null && Model.ResearchCenterDepartments.Count > 0)
+    {
+        <h3 class="specialty">@Resources.AreasOfSpecialty</h3>
+        <div class="tabs-image-area">
+
+            @{int itemsPerRow = Model.ResearchCenterDepartments.Count / 2; }
+
+            @foreach (TrialScout.Web.ViewModels.ResearchCenterDepartmentViewModel department in Model.ResearchCenterDepartments)
+            {
+            <div class="t-single-i">
+                @if (department.ImageName != null && department.ImageName != "")
+                {
+                    <img src="~/Content/images/icons/departments/@department.ImageName" height="100" width="100" />
+                }
+                else
+                {
+                    <img src="~/Content/images/icons/definitions.svg" height="100" width="100" />
+                }
+                <p>@department.DepartmentName</p>
+            </div>
+            }
+        </div>
+            }
+    }

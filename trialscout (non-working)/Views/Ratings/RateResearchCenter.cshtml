@@ -1,0 +1,129 @@
+﻿@model TrialScout.Web.ViewModels.RateTrialViewModel
+@{
+    ViewBag.Title = String.IsNullOrEmpty(Model?.AliasName) ? "Research Center Rating" : "Rate " + Model.AliasName;
+    Layout = "~/Views/Shared/_RatingLayout.cshtml";
+}
+<style>
+    .text-danger {
+        color: #dc3545;
+    }
+</style>
+
+<div class="progress-parent">
+    <section class="progress-section">
+        <ol class="custom-progressbar">
+            <li class="is-active"><span>Page 1 of 3</span></li>
+            <li><span>Page 2 of 3</span></li>
+            <li><span>Page 3 of 3</span></li>
+        </ol>
+    </section>
+</div>
+
+
+
+@using (Html.BeginForm("rateresearchcenter", "ratings", FormMethod.Post, new { @class = "trsc-ratings-form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.InitialRating)
+    @Html.HiddenFor(model => model.RatingId)
+    @Html.HiddenFor(model => model.ResearchCenter)
+    @Html.HiddenFor(m => m.AliasName)
+    <input type="hidden" id="CenterId" name="CenterId" value="@Model.CenterId" />
+    <input type="hidden" id="AliasId" name="AliasId" value="@Model.AliasId" />
+
+    if (Model.ResearchCenter == null || Model.ResearchCenter.Trim() == "")
+    {
+
+        <div class="row">
+            <div class="col-12 text-center">
+                <h3> @Resources.RateLabel1</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col text-center">
+                @Html.TextBoxFor(model => model.ResearchCenterDisplayName, new { @class = "form-control", placeholder = Resources.RateCenterInputPlaceholder })
+                @Html.ValidationMessageFor(model => model.ResearchCenterDisplayName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 text-center">
+                <p class="trsc-ratings-dontsee">
+                    Don't see your research center? <a style="text-decoration:underline;" href="~/Home/ContactUs">Contact us</a>
+                </p>
+            </div>
+        </div>        
+        <div class="row">
+            <div class="col-12 text-center">
+                <h4>@Resources.RateLabel2</h4>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-12 text-center">
+                <h4>@Resources.TakeTwoMinutesToShareYourClinicalTrialExperience <br />@Resources.SharingYourStoryCanHelpUsImproveTheProcessForEveryone </h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                @if (Model.AliasName != null && Model.AliasName.Trim() != "" && Model.AliasName != Model.ResearchCenter)
+                {
+                <h4>@Resources.WouldYouRecommendToYourFamilyAndFriends <br /><span style="color: #009944; font-weight: bold"> @Model.AliasName,</span><br /> @Resources.PartOfHealthSystem <span style="color: #009944; font-weight: bold"> @Model.ResearchCenter</span><br /> @Resources.ToFamilyAndFriends</h4>
+                }
+                else
+                {
+                    <h4>@Resources.WouldYouRecommendToYourFamilyAndFriends <span style="color: #009944; font-weight: bold">@Model.ResearchCenter</span> <br />@Resources.ToFamilyAndFriends</h4>
+                }
+            </div>
+            @Html.HiddenFor(m => m.ResearchCenterDisplayName)
+        </div>
+    }
+
+    <!-- lines 68-72 were incorporated into lines 56 and 60-->
+    <!-- div class="row">
+        <div class="col-12 text-center">
+            <h3 id="recommend_center">Would you recommend this research center <br />to your family and friends?</h3>
+        </div>
+    </div-->
+
+    <div class="row trsc-rating-page">
+        <div class="col text-center">
+            <div class="overallRating">
+                <p><input type="text" id="overallRating" name="overallRating" class="d-none" /></p>
+                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "overallStar1", ClassName = "emptyRating", Title = Resources.NoItWasDisappointing, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "overallStar2", ClassName = "emptyRating", Title = Resources.NoItWasUnfulfilling, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "overallStar3", ClassName = "emptyRating", Title = Resources.YesItWasAGoodExperience, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "overallStar4", ClassName = "emptyRating", Title = Resources.YesItWasImpactful, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "overallStar5", ClassName = "emptyRating", Title = Resources.YesItWasEmpowering, Height = 45, Width = 45, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+            </div>
+        </div>
+    </div>
+
+    <div class="row trsc-rating-page">
+        <div class="col-12 text-center">
+            <div id="overallRatingDescription" class="trsc-star-rating-text-default">@Resources.PleaseBeginYourReview</div>
+        </div>
+        <div class="col-12 text-center">
+            @Html.TextBoxFor(model => model.OverallRatingDescription, new { @class = "invisible" })
+            @Html.ValidationMessageFor(model => model.OverallRatingDescription, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-12 text-center">
+            <button id="sendButton" type="submit" class="btn btn-primary">@Resources.NextButton</button>
+        </div>
+    </div>
+}
+
+
+
+
+@section Scripts {
+    <script src="~/Scripts/RateTrial.js"></script>
+}

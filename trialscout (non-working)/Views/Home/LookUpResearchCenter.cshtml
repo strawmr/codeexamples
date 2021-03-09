@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Research Center Lookup";
+    Layout = "~/Views/Shared/_LayoutContentPages.cshtml";
+}
+
+<div class="hero-image-subpages">
+    <div class="container">
+
+        <div class="row findTrialTextBox">
+            <h2 id="find">@Resources.LookUpAResearchCenterLink</h2>
+            <div class="col-12 headTXT">
+                @Html.Partial("_LocateResearchCenter")
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section scripts {
+     <script src="~/Scripts/LookUpResearchCenter.js"></script>
+}

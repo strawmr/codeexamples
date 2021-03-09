@@ -1,0 +1,93 @@
+﻿@model TrialScout.Web.ViewModels.AdvancedTrialSearchViewModel
+
+<div class="form-area">
+    <form method="GET" action="/search" autocomplete="off">
+        <div class="input-area-trials" id="scrollable-dropdown-menu">
+            @Html.LabelFor(m => m.Condition, new { @class = "text-left" })
+            @Html.TextBoxFor(model => model.Condition, new { @class = "text-left", @id = "Condition", placeholder = Resources.MedicalCondition, autocomplete = "off" })
+        </div>
+        <div class="inputs">
+            <div class="select option2 input-area-trials">
+                @Html.LabelFor(m => m.Sex, new { @class = "text-left" })
+                <div class="selects">
+                    @Html.DropDownListFor(model => model.Sex, new SelectList(Model.Sexes), Resources.SelectDropdown, new { @id = "Sex", @class = "text-left" })
+                </div>
+
+            </div>
+            <div class="input2 input-area-trials">
+                @Html.LabelFor(m => m.Age, new { @class = "text-left" })
+                @Html.TextBoxFor(model => model.Age, new { @id = "Age", @class = "text-left", placeholder = Resources.Age, autocomplete = "off" })
+            </div>
+        </div>
+        @*<div class="select option input-area-trials">
+            <div class="row" style="margin-left: 0;">
+                @Html.LabelFor(m => m.TrialPhase, new { @class = "text-left" })
+                <a href="https://blog.trialscout.com/clinical-trials-patients/clinical-trials-consist-of-four-phases-what-are-they" target="_blank">
+                    <span class="trsc-info-icon">
+                        <span class="fa fa-info"></span>
+
+                    </span>
+                </a>
+            </div>
+            <div class="selects">
+                @Html.DropDownListFor(model => model.TrialPhase, new SelectList(Model.TrialPhases), "Select...", new { @id = "TrialPhase", @class = "text-left" })
+            </div>
+        </div>*@
+            <div class="submit-area">
+                @if (Model.Condition == null || Model.Condition.Trim() == "")
+                {
+                    <button id="searchtrialbutton" type="button" class="btn btn-link">
+                       @Resources.SearchLink
+                    </button>
+                }
+                else
+                {
+                    <button id="applysearchlink" type="button" class="btn btn-link">
+                        Apply
+                    </button>
+                }
+            </div>
+</form>
+</div>
+@*<div class="form-area">
+        <form method="GET" action="/search" autocomplete="off">
+            <input type="hidden" name="proximity" value="50" />
+            <div class="row advanced_trial_form">
+                <div class="input-area twitter-typeahead" id="scrollable-dropdown-menu">
+                    @Html.LabelFor(m => m.Condition, new { @class = "text-left" })
+                    @Html.TextBoxFor(model => model.Condition, new { @class = "form-control text-left", @id = "Condition", placeholder = "Medical Condition", autocomplete = "off" })
+                </div>
+                <div class="select option2 input-area">
+                    @Html.LabelFor(m => m.Sex, new { @class = "text-left" })
+                    @Html.DropDownListFor(model => model.Sex, new SelectList(Model.Sexes), "Select...", new { @id = "Sex", @class = "form-control text-left" })
+                </div>
+                <div class="input2 input-area">
+                    @Html.LabelFor(m => m.Age, new { @class = "text-left" })
+                    @Html.TextBoxFor(model => model.Age, new { @id = "Age", @class = "form-control text-left", placeholder = "Age", autocomplete = "off" })
+                </div>
+
+                <div class="select option input-area">
+                    @Html.LabelFor(m => m.TrialPhase, new { @class = "text-left" })
+                    @Html.DropDownListFor(model => model.TrialPhase, new SelectList(Model.TrialPhases), "Select...", new { @id = "TrialPhase", @class = "form-control text-left" })
+                </div>
+                <div style="margin-top: 30px; padding-left: 0; padding-right: 0;" class="submit-area">
+                    @if (Model.Condition == null || Model.Condition.Trim() == "")
+                    {
+                        <button id="searchtrialbutton" type="button" class="btn btn-link">
+                            Search
+                        </button>
+                    }
+                    else
+                    {
+                        <button id="applysearchlink" type="button" class="btn btn-link">
+                            Apply
+                        </button>
+                    }
+                </div>
+
+            </div>
+            <div class="row d-xs-block d-md-none">
+                <div class="col"><hr class="trsc-hr" /></div>
+            </div>
+        </form>
+    </div>*@

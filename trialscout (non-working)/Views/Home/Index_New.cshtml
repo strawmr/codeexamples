@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Home.cshtml";
+
+}
+
+@Styles.Render("~/Content/index_new.css")
+
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="row trsc-masthead trsc-homepage">
+        <div class="col-12 col-lg-3 trsc-logo-full">
+            <a href="~/"><img src="~/Content/images/trialscout.svg" class="img-fluid" alt="Trial Scout" border="0" /></a>
+            <p class="trsc-version"></p>
+        </div>
+        <div class="col-12 col-lg-9 trsc-partner-login">
+            @if (Request.IsAuthenticated)
+            {
+                <div class="row rightbox">
+                    <div class="col-12 col-lg-6 trsc-admin-menu float-right">
+                        @Html.Partial("_NavAdminMenu")
+                    </div>
+                    <div class="col-12 col-lg-6 trsc-login float-right">
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row rightbox">
+                    <div class="col-12 col-lg-8 trsc-admin-menu float-right">
+                        @Html.Partial("_NavAdminMenu")
+                    </div>
+                    <div class="col-12 col-lg-4 trsc-login float-right">
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row trsc-search-row" id="trsc-search-row">
+            <span id="trsc-searches"></span>
+            <div class="col-xl-6" id="findTrialDiv">
+                <div class="trsc-panel trsc-dropshadow">
+                    <h2>Find a Clinical Trial</h2>
+                    @Html.Partial("_FindClinicalTrial")
+                </div>
+                <div class="trsc-panel trsc-dropshadow">
+                    <h2>Look Up a Research Center</h2>
+                    @Html.Partial("_LocateResearchCenter")
+                </div>
+            </div>
+            <div class="col-xl-6" id="rateResearchCenter">
+                <div class="trsc-panel trsc-dropshadow">
+                    <h2>Rate a Research Center</h2>
+                    <div class="row">
+                        <div class="col-12 text-center" id="rateResearchCenterDiv">
+                            <input type="hidden" id="ratingResearchCenterId" name="ratingResearchCenterId" />
+                            <input type="hidden" id="ratingResearchCenterName" name="ratingResearchCenterName" />
+                            <input type="text" id="ratingResearchCenterDisplayName" name="ratingResearchCenterDisplayName" class="form-control" placeholder="1. Enter your research center & pick" />
+                            <p class="trsc-missing-rc-link">
+                                Don't see your research center? <a href="/Home/ContactUs">Contact us</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            @Html.Partial("_Recommend")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".jumbotron").css({ height: $(window).height() + "px" });
+
+    $(window).on("resize", function () {
+        $(".jumbotron").css({ height: $(window).height() + "px" });
+    });
+</script>
+@section scripts
+{
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="~/Scripts/Home.js"></script>
+}

@@ -1,0 +1,32 @@
+﻿@*<script type="text/javascript">
+    $(document).ready(function () {
+        var stepPlaceholderOne = "";
+        var stepPlaceholderTwo = "";
+        if (window.location.href.indexOf("ResearchCenter") == -1) {
+            stepPlaceholderOne = "2. ";
+            stepPlaceholderTwo = "3. ";
+        }
+        $('#stepP1').html(stepPlaceholderOne);
+        $('#stepP2').html(stepPlaceholderTwo);
+    });
+</script>*@
+<div class="trsc-ratings">       
+            <h2 id="recommend_center"><span id="stepP1"></span> Would you recommend <br /> this research center to your family and friends?</h2>
+        <form>
+            <div class="overallRating tabs-review-icon" style="margin-top:20px;">
+                <input type="text" id="overallRating" name="overallRating" class="d-none" />
+                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "overallStar1", ClassName = "emptyRating", Title = "No, it was disappointing.", Height = 65, Width = 65, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "overallStar2", ClassName = "emptyRating", Title = "No, it was unfulfilling.", Height = 65, Width = 65, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "overallStar3", ClassName = "emptyRating", Title = "Yes, it was a good experience.", Height = 65, Width = 65, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "overallStar4", ClassName = "emptyRating", Title = "Yes, it was impactful.", Height = 65, Width = 65, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = "overallStar5", ClassName = "emptyRating", Title = "Yes, it was empowering.", Height = 65, Width = 65, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+            </div>
+
+            <div class="text-center">
+                <div id="overallRatingDescription" class="trsc-star-rating-text-home"></div>
+            </div>
+            <div class="text-center ratingsProfile" style="margin-bottom:30px;">
+                <button id="completeRating" type="button" class="btn btn-primary" data-url="@Url.Action("VerifiedRating", "Ratings")"><span id="stepP2"></span>Submit</button>
+            </div>
+        </form>
+</div>

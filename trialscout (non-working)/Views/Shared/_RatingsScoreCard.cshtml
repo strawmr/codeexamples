@@ -1,0 +1,111 @@
+﻿@model TrialScout.Web.ViewModels.RatingScoreCardViewModel
+
+<div class="card-container">
+    <div class="review-count-header" style="padding-bottom: 10px;">
+        @if (Model.TotalRatings == 1)
+        {
+            <span>@Model.TotalRatings.ToString() @Resources.NumberPatientReviews</span>
+        }
+        else
+        {
+            <span>@Model.TotalRatings.ToString() @Resources.NumberPatientReviews</span>
+
+        }
+
+    </div>
+    <div class="row">
+        <div class="col-12" style="padding:0px;">
+            <a href="" data-score="5" data-toggle="modal" data-target="#trialScoreModal">
+                <div class="row">
+                    <div class="col-3 score star"><span>@Resources.FiveStar</span></div>
+                    <div class="col-7 star_pgs">
+                        <div class="star_pgb ">
+                            <div class="_5_star"></div>
+                        </div>
+                    </div>
+                    <div class="col-2 score percent"> <span class="_5_star_num">0%</span></div>
+                </div>
+            </a>
+            <a href="#" data-score="4" data-toggle="modal" data-target="#trialScoreModal">
+                <div class="row">
+                    <div class="col-3 score star"><span>@Resources.FourStar</span></div>
+                    <div class=" col-7 star_pgs">
+                        <div class="star_pgb"><div class="_4_star"></div></div>
+                    </div>
+                    <div class="col-2 score percent"> <span class="_4_star_num">0%</span></div>
+                </div>
+            </a>
+            <a href="#" data-score="3" data-toggle="modal" data-target="#trialScoreModal">
+                <div class="row">
+                    <div class="col-3 score star"><span>@Resources.ThreeStar</span></div>
+                    <div class="col-7 star_pgs">
+                        <div class="star_pgb"><div class="_3_star"></div></div>
+                    </div>
+                    <div class="col-2 score percent"> <span class="_3_star_num">0%</span></div>
+                </div>
+            </a>
+            <a href="#" data-score="2" data-toggle="modal" data-target="#trialScoreModal">
+                <div class="row">
+                    <div class="col-3 score star"><span>@Resources.TwoStar</span></div>
+                    <div class="col-7 star_pgs">
+                        <div class="star_pgb"><div class="_2_star"></div></div>
+                    </div>
+                    <div class="col-2 score percent"> <span class="_2_star_num">0%</span></div>
+                </div>
+            </a>
+            <a href="#" data-score="1" data-toggle="modal" data-target="#trialScoreModal">
+                <div class="row">
+                    <div class="col-3 score star"><span>@Resources.OneStar</span></div>
+                    <div class="col-7 star_pgs">
+                        <div class="star_pgb"> <div class="_1_star"></div></div>
+                    </div>
+                    <div class="col-2 score percent"> <span class="_1_star_num">0%</span></div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+</div>
+@Html.HiddenFor(m => Model.Ones, new { id = "OnePercent" })
+@Html.HiddenFor(m => Model.Twos, new { id = "TwoPercent" })
+@Html.HiddenFor(m => Model.Threes, new { id = "ThreePercent" })
+@Html.HiddenFor(m => Model.Fours, new { id = "FourPercent" })
+@Html.HiddenFor(m => Model.Fives, new { id = "FivePercent" })
+@Html.HiddenFor(m => Model.TotalRatings, new { id = "totalRatings" })
+
+<div class="modal fade " id="trialScoreModal" tabindex="-1" data-url="@Url.Action("_Ratings", "ResearchCenter", new { centerId = Model.CenterId, aliasId = Model.AliasId })">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <input type="hidden"  id="tempvalue"/>
+            <div class="modal-header">
+                @if (Model.AliasName == null)
+                {
+                    <h5 class="modal-title">Showing all (<span id="scoreText"></span> star) reviews from @Model.LocationName</h5>
+                }
+                else
+                {
+                    <h5 class="modal-title">Showing all (<span id="scoreText"></span> star) reviews from @Model.AliasName</h5>
+
+                }
+                <button style="display:block !important;" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+            </div>
+            <div class="sortby">
+                <button style="margin-right:40px; float:right; margin-top:10px;" id="modalDrop" class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sort By
+                </button>
+                <div id="dropValue" class="dropdown-menu">
+                    <a class="dropdown-item">Date</a>
+                    <a class="dropdown-item">Rater Comments</a>
+                </div>
+            </div>
+            <div class="modal-body overflow-auto">
+                <div id="ratingsContainer">
+                </div>
+                <div class="text-center" style="padding-bottom:15px">
+                    <button type="button" id="loadMoreReviewsModal" class="btn trsc-load-more-btn">Load More</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

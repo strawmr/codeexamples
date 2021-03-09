@@ -1,0 +1,114 @@
+﻿@model List<TrialScout.Web.ViewModels.ResearchCenterRatingsViewModel>
+@{
+    Layout = null;
+}
+@foreach (TrialScout.Web.ViewModels.ResearchCenterRatingsViewModel rating in Model)
+{
+
+    <div class="row">
+        <div class="col-8">
+                @rating.AliasName <br />
+
+            @{ int count = 1;}
+            @while (count <= (int)rating.Rating)
+            {
+                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = Guid.NewGuid().ToString(), ClassName = "fillRating", Height = 35, Width = 35, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                count++;
+            }
+
+            @if (rating.Rating % 1 > 0)
+            {
+                @Html.Partial("_HalfStarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Height = 25, Width = 25, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                count++;
+            }
+            @while (count <= 5)
+            {
+                @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = Guid.NewGuid().ToString(), ClassName = "emptyRating", Height = 35, Width = 35, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                count++;
+            }
+            <div class="trsc-profile-star-rating">
+                @rating.Rating.Value.ToString("N1") @Resources.ReviewScore
+            </div>
+        </div>
+        <div class="col-4">
+            @{string modalName = rating.ReviewId + "Modal"; }
+            @if ((bool)ViewData["IsSiteOwner"])
+            {
+                <button id="@rating.ReviewId" type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#@modalName">Edit Response</button>
+            }
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col trsc-inline-rating-items">
+
+            @if (rating.ReviewerStatus == Globals.ReviewerLevels.AuthenticatedReviewer)
+            {
+                <img height="16" width="16" src="~/Content/images/trsc-leaf.svg" />
+                <img height="16" width="16" src="~/Content/images/trsc-leaf.svg" />
+                <img height="16" width="16" src="~/Content/images/trsc-leaf.svg" />
+            }
+            else if (rating.ReviewerStatus == Globals.ReviewerLevels.VerifiedReviewer)
+            {
+                <img height="16" width="16" src="~/Content/images/trsc-leaf.svg" />
+                <img height="16" width="16" src="~/Content/images/trsc-leaf.svg" />
+            }
+
+            <h6>@rating.ReviewerStatusDescription</h6>
+
+            @Html.Partial("_Help", rating.ReviewerStatusHelp)
+
+            <p> | @Resources.SubmittedDate @rating.CreatedDate.ToString("D")</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <p>@rating.Comment</p>
+        </div>
+    </div>
+
+    if (rating.Response != null && rating.Response.Trim() != "")
+    {
+        <div class="row">
+            <div class="col-9 offset-2">
+                <h5>@rating.ResponderName</h5> |Replied @rating.CreatedDate.ToString("D")
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-9 offset-2">
+                <p>@rating.Response</p>
+            </div>
+        </div>
+    }
+
+    <hr />
+
+
+    if ((bool)ViewData["IsSiteOwner"])
+    {
+        string containerName = rating.ReviewId + "Container";
+
+        <!--review response modal-->
+        <div class="modal fade responseModal" id="@modalName" tabindex="-1" data-url="@Url.Action("EditResponse", "Ratings", new { reviewId = rating.ReviewId })">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Your Response</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="@containerName">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+
+}

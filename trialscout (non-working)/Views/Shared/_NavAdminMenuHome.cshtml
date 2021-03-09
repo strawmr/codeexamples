@@ -1,0 +1,65 @@
+﻿<nav class="navbar navbar-expand-md" id="mobileAdmin">
+    <ul class="navbar-nav ml-auto">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="~/Manage">Change Password</a>
+                    <a href="/MyResearchCenter" class="dropdown-item">My Research Center</a>
+                </div>
+            </li>
+        }
+
+        @if (User.IsInRole("Moderator"))
+        {
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Moderate</a>
+                <div class="dropdown-menu">
+                    <a href="~/Moderator/Ratings" class="dropdown-item">Reviews</a>
+                    <a href="~/Moderator/Responses" class="dropdown-item">Responses</a>
+                </div>
+            </li>
+        }
+
+        @if (User.IsInRole("DataImport"))
+        {
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Data Import</a>
+                <div class="dropdown-menu">
+                    <a href="~/ResearchCentersMapping" class="dropdown-item">Research Center Management</a>
+                    <a href="~/AliasMapping" class="dropdown-item">Alias Mapping Management</a>
+                    <a href="~/AliasMapping/ManagePseudonyms" class="dropdown-item">Pseudonym Management</a>
+                    <a href="~/AliasMapping/UnmapFacilities" class="dropdown-item">Unmap Facilities from Aliases</a>
+                    <a href="~/AliasMapping/MapFacilitiesDynamicAlias" class="dropdown-item">Map Unmapped Facilities</a>
+                    <a href="~/ResearchCentersMapping/MapAliasesDynamicResearchCenter" class="dropdown-item">Map Unmapped Aliases</a>
+                </div>
+            </li>
+        }
+
+        @if (User.IsInRole("Administrator"))
+        {
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="~/Admin/Users">Users</a>
+                    <hr />
+                    <a href="~/Moderator/Ratings" class="dropdown-item">Reviews</a>
+                    <a href="~/Moderator/Responses" class="dropdown-item">Responses</a>
+                    <hr />
+                    <a href="~/ResearchCentersMapping" class="dropdown-item">Research Center Management</a>
+                    <a href="~/AliasMapping/ManageAliases" class="dropdown-item">Alias Management</a>
+                    <a href="~/AliasMapping/ManagePseudonyms" class="dropdown-item">Pseudonym Management</a>
+                    <a href="~/AliasMapping" class="dropdown-item">Alias Mapping Management</a>
+                    <a href="~/AliasMapping/UnmapFacilities" class="dropdown-item">Unmap Facilities from Aliases</a>
+                    <a href="~/AliasMapping/MapFacilitiesDynamicAlias" class="dropdown-item">Map Unmapped Facilities</a>
+                    <a href="~/ResearchCentersMapping/MapAliasesDynamicResearchCenter" class="dropdown-item">Map Unmapped Aliases</a>
+                    <a href="~/Report/Index" class="dropdown-item">Ad Effectiveness</a>
+                    <a href="~/BackLinks/Index" class="dropdown-item">Backlinks</a>
+                    <hr />
+                    <a href="~/EventErrors/Index" class="dropdown-item">Event Logs</a>
+                </div>
+            </li>
+        }
+    </ul>
+</nav>

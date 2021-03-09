@@ -1,0 +1,467 @@
+﻿@model TrialScout.Web.ViewModels.ResearchCenterAliasDetailsViewModel
+
+@{
+    ViewBag.Title = Model.Alias + " | TrialScout";
+    Layout = "~/Views/Shared/_LayoutRCProfile.cshtml";
+}
+
+@if (Model.DepartmentMetaTagString != null)
+{
+    @section metatags{
+        <meta name="keywords" content="@Model.DepartmentMetaTagString" />
+        <meta name="description" content="@Model.SearchDescription" />
+    }
+}
+
+@Html.HiddenFor(model => model.LocationName)
+@Html.HiddenFor(model => model.CenterId)
+@Html.HiddenFor(model => model.SearchLocation)
+@Html.HiddenFor(model => model.SearchProximity)
+@Html.HiddenFor(model => model.Alias)
+
+<input type="hidden" id="SearchCondition" name="SearchCondition" value="@Model.Condition" />
+<input type="hidden" id="FullLocation" name="FullLocation" value="@Model.TrialSearchLocation" />
+<input type="hidden" id="AliasId" value="@Model.AliasId" />
+
+
+
+<section class="banner-area">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="banner">
+                @*@if ((System.Uri)ViewBag.ReturnUrl != null && !string.IsNullOrWhiteSpace(((System.Uri)ViewBag.ReturnUrl).AbsoluteUri) && ViewBag.ReturnUrl.ToString().Contains(Request.Url.Scheme + System.Uri.SchemeDelimiter + Request.Url.Host + (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port) + "/search"))
+                {
+                    <nav aria-label="breadcrumb" class="profile-breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="~/Home">Home</a></li>
+                            <li class="breadcrumb-item"><a href="@ViewBag.ReturnUrl.ToString()">Search</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Location</li>
+                        </ol>
+                    </nav>
+                }*@
+
+               <img src="@Model.ProfileImageBlobUri" alt="Profile Picture" class="img-fluid" />
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="tabs-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-12">
+                <div class="logo-image">
+                 <img src="@Model.LogoBlobUri" alt="Company Logo" class="img-fluid" />
+                </div>
+                <div class="tabs-contact">
+                    @if (Model.Alias != null && Model.Alias.Trim() != null && Model.Alias.ToLower().Trim() != Model.LocationName.ToLower().Trim())
+                    {
+                        <h4 class="custom_title">@Model.Alias, @Resources.PartOfHealthSystem <a href="~/ResearchCenter/@Model.LocationName/@Model.CenterId">@Model.LocationName</a></h4>
+                    }
+                    else
+                    {
+                        <h4>@Model.Alias</h4>
+                    }
+                    <div class="row poly-star">
+                        @{ decimal rank = Model.AliasRating;}
+                        @{ decimal rankTenths = Model.AliasRatingTenths;}
+
+                        @{ int i = 1;}
+                        @while (i <= rank)
+                        {
+                            i += 1;
+                            @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = Guid.NewGuid().ToString(), ClassName = "fillRating", Height = 20, Width = 19, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                        }
+
+                        @if (rank % 1 != 0)
+                        {
+                            i += 1;
+                            @Html.Partial("_HalfStarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Height = 20, Width = 19, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                        }
+
+                        @while (i <= 5)
+                        {
+                            @Html.Partial("_StarRating", new TrialScout.Web.ViewModels.RatingStarViewModel() { Id = Guid.NewGuid().ToString(), ClassName = "emptyRating", Height = 20, Width = 19, ViewBoxHeight = 65, ViewBoxWidth = 65 })
+                            i += 1;
+                        }
+                        <p class="score_text">@rankTenths.ToString("N1")<span>&nbsp;@Resources.OverallScore </span> @Html.Partial("_Help", Resources.ScoreIButtonExplanation) </p>
+                    </div>   
+                        <div class="embed"><a data-id="@Model.AliasId" data-type="alias" data-target="#embedModal" data-toggle="modal" href="#"><i><img style="width:14px; height:10px;" src="~/Content/images/icons/ic_code_24px.svg" /></i>  embed score</a></div>
+                        <ul>
+                            @if (Model.City != null && Model.State != null && Model.Zip != null && Model.Address != null)
+                            {
+                                <li class="location">
+                                    <img src="/Content/images/icons/ic_place_24px.svg" alt="icon" />
+                                    <p>@Model.Address <br />  @Model.City, @Model.State @Model.Zip </p>
+                                </li>
+                            }
+                            @if (Model.Phone != null)
+                            {
+                                <li>
+                                    <img style="height:24px; width:24px" src="~/Content/images/icons/phone-solid.svg" alt="icon" />
+                                    @Model.Phone
+                                </li>
+                            }
+                            @if (Model.Url != null && Model.Url.Trim() != "")
+                            {
+                                <li>
+                                    <img src="/Content/images/icons/ic_open_in_new_24px.svg" /> <a href="@Model.Url" target="_blank">@Model.Url.Replace("https://", "").Replace("http://", "")</a>
+                                </li>
+                            }
+                            @if (Model.PrintPublishedOn != null && Model.PrintPublishedOn.Trim() != "")
+                            {
+
+                                <li>
+                                    <img src="/Content/images/icons/ic_today_24px.svg" />  @Resources.JoinDate @Model.PrintPublishedOn
+                                </li>
+                            }
+                        </ul>
+                    <div class="tabs-review2">
+                       <a href="~/Ratings/RateResearchCenter?centerId=@Model.CenterId&alias=@Model.Alias">@Resources.Review</a>
+                    </div>
+                    @if (String.IsNullOrWhiteSpace(Request.QueryString["callback"]))
+                    {
+
+                        <div class="contact-btn" style="cursor:pointer;">
+                            <a data-toggle="modal" data-target="#contactModal">@Resources.ContactButton</a>
+                        </div>
+                    }
+                    @if (Model.IsSiteOwner || User.IsInRole("Administrator"))
+                    {
+                            <div class="contact-btn" style="cursor:pointer;">
+                                <a href="/ResearchSite/EditAlias/@Model.AliasId?returnController=ResearchSite&returnAction=@Model.AliasId" id="editProfile">Edit</a>
+                            </div>
+                    }
+
+                    @if (Model.Images != null && Model.Images.Count > 0)
+                    {
+                        @Html.Partial("_Images", Model.Images)
+                    }
+
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="tabs-menu" id="tabs">
+                    <ul>
+
+                            <li class="active"><a href="#tabs-1">@Resources.OverviewTab</a></li>
+                            <li><a href="#tabs-2">@Resources.ClinicalTrialsTab</a></li>
+                            <li><a href="#tabs-3">@Resources.ReviewsTab</a></li>
+
+                    </ul>
+                    <div class="tabs-1" id="tabs-1">
+                        @if (Model.IsPublished || Model.IsSiteOwner || User.IsInRole("Administrator"))
+                        {
+                            <div class="trsc-profile-bio">
+                                @if (Model.Summary == null || Model.Summary.Trim() == "")
+                                {
+                                    <p style="font-size: x-large;">The site has not provided information to us.</p>
+                                }
+                                else
+                                {
+                                    @Html.Raw(Model.Summary)
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <p style="font-size: x-large;">The site has not provided information to us.</p>
+                        }
+                        <hr />
+
+                        @if (!Model.IsPublished)
+                        {
+                            <div class="col-12 col-md-12 text-center">
+                                <h5>Is this your research center? Click here to become a partner.</h5>
+                                <a href="/ResearchCenter/ClaimResearchCenter?name=@Model.LocationName" class="btn btn-primary">Claim This Research Center</a>
+                            </div>
+                        }
+
+
+                        @if (Model.IsAliasTop50 && !Model.IsAliasSCRS)
+                        {
+                            <h3 class="">Awards and Honors</h3>
+                            <a href="~/Top50Hospitals">
+                                <img src="~/Content/images/TrialScout_Award_FINAL.svg" alt="Top 50 Badge" style="max-width:125px;" />
+                            </a>
+                            <hr />
+                        }
+
+                        else if (Model.IsAliasSCRS && !Model.IsAliasTop50)
+                        {
+                            <h3 class="">Memberships</h3>
+                            <a href="http://info.trialscout.com/scrs-members" target="_blank">
+                                <img src="~/Content/images/SCRSbadge.svg" alt="SCRS Badge" style="max-width:75px;" />
+                            </a>
+                            <hr />
+                        }
+
+                        else if (Model.IsAliasSCRS && Model.IsAliasTop50)
+                        {
+                            <h3 class="">Memberships and Honors</h3>
+                            <a href="~/Top50Hospitals" style="margin: 10px;" target="_blank">
+                                <img src="~/Content/images/TrialScout_Award_FINAL.svg" alt="Top 50 Badge" style="max-width:125px;" />
+                            </a>
+                            <a href="http://info.trialscout.com/scrs-members" style="margin: 10px;" target="_blank">
+                                <img src="~/Content/images/SCRSbadge.svg" alt="SCRS Badge" style="max-width:75px;" />
+                            </a>
+                            <hr />
+                        }
+
+
+                        @if (Model.IsPublished || Model.IsSiteOwner || User.IsInRole("Administrator"))
+                        {
+
+                            if (Model.ResearchCenterDepartments != null && Model.ResearchCenterDepartments.Count > 0)
+                            {
+                                <h3 class="specialty">@Resources.AreasOfSpecialty</h3>
+                                <div class="tabs-image-area">
+
+                                    @{int itemsPerRow = Model.ResearchCenterDepartments.Count / 2; }
+
+                                    @foreach (TrialScout.Web.ViewModels.ResearchCenterDepartmentViewModel department in Model.ResearchCenterDepartments)
+                                    {
+                                        <div class="t-single-i">
+                                            @if (department.ImageName != null && department.ImageName != "")
+                                            {
+                                                <img src="~/Content/images/icons/departments/@department.ImageName" height="100" width="100" />
+                                            }
+                                            else
+                                            {
+                                                <img src="~/Content/images/icons/definitions.svg" height="100" width="100" />
+                                            }
+                                            <p>@department.DepartmentName</p>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        }
+
+                    </div>
+                    <div class="tabs-2" id="tabs-2">
+                        <div id="findTrialDiv" class="form-area">
+                            <div class="location-area">
+                                @if (Model.Condition != null && Model.Condition.Trim() != "")
+                                {
+                                    <h5>Filter By</h5>
+                                }
+                                else
+                                {
+                                    <h5>@Resources.FindAClinicalTrial</h5>
+                                }
+                                @Html.Partial("_FindClinicalTrialAdvanced", Model.TrialSearch)
+                            </div>
+                        </div>
+                       @Html.Partial("_Top10Conditions", Model.Top10Conditions)
+                        <div id="ajaxSpinner" style="text-align:center; padding: 5px 5px;"><img src="/Content/images/ajax-loader2.gif" alt="loader" /></div>
+                        <div id="trialListDiv">
+                            <div class="col-12 col-md-12">
+                                @if (Model.Condition != null && Model.Condition.Trim() != "")
+                                {
+                                    <h4><span id="trialcountdynamic">@Model.TotalTrialCount</span> Clinical Trials for <b id="conditiondirect">@Model.Condition</b> at<br /><b>@Model.Alias</b></h4>
+                                }
+                                <div id="trialsearchdirect"> <h4><span id="trialcountdynamic"></span> Clinical Trials for <b><span id="conditiondirect"></span> </b>at<br /><span id="locationNameDynamic"></span><b> @Model.Alias</b></h4></div>
+
+                                <div id="clinicalTrialDiv" class="trsc-profile-trials-list">
+
+                                    <ul id="trialList">
+                                        @if (Model.Trials != null)
+                                        {
+                                            @Html.Partial("_ClinicalTrials", Model.Trials)
+                                        }
+                                    </ul>
+                                </div>
+                                <div class="row profile-page-item" style="padding-top: 15px;">
+                                    <div class="col-12 text-center profile-page-item">
+                                        <input type="hidden" id="TotalTrialCount" value="@Model.TotalTrialCount" />
+                                        <input type="hidden" id="TrialPageSize" value="@Model.TrialPageSize" />
+                                        @if (Model.TrialPageSize < Model.TotalTrialCount)
+                                        {
+                                            <button type="button" id="loadMoreTrials" class="btn trsc-load-more-btn trsc-profile-load-more-trials">Load More</button>
+                                        }
+                                        else
+                                        {
+                                            <button type="button" id="loadMoreTrials" class="btn trsc-load-more-btn trsc-profile-load-more-trials" style="display: none;">Load More</button>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tabs-3">
+                        <div class="tabs3">
+                            @if (Model.Alias != null)
+                            {
+                                @Html.Partial("_Recommend")
+                            }
+                            <div class="tabs-reviews-rating">
+                                <div id="ratingsDiv">
+                                    @if (Model.Ratings != null && Model.Ratings.Count() > 0)
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                    <h4>@Resources.RatingsForLocationLabel  <span style="font-weight:bold;">@Model.Alias </span></h4>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <span>  @Resources.SortByLabel   @Html.DropDownListFor(model => model.ReviewSortOption, new SelectList(Model.ReviewSortOptions, "key", "value", Model.ReviewSortOption), new { @class = "dropdown_review" }) </span>
+                                            </div>
+                                        </div>
+
+                                        <div id="ratingsDisplay">
+                                            @Html.Partial("_Ratings", Model.Ratings, new ViewDataDictionary() { { "IsSiteOwner", Model.IsSiteOwner } })
+                                        </div>
+                                        <input type="hidden" id="TotalReviewCount" value="@Model.TotalRatingCount" />
+                                        <input type="hidden" id="ReviewPageSize" value="@Model.ReviewPageSize" />
+
+                                        if (Model.Ratings.Count() < Model.TotalRatingCount)
+                                        {
+                                            <div class="text-center" style="padding-bottom:15px">
+                                                <button type="button" id="loadMoreReviews" class="btn trsc-load-more-btn">Load More</button>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-12 col-review">
+                <div class="tabs-review">
+                    @if (Model.Alias == null && Model.Aliases.Count > 1)
+                    {
+                        <a data-centerid="@Model.CenterId" data-target="#ratingModal" style="cursor:pointer;" data-toggle="modal">@Resources.LeaveAReviewButton</a>
+                    }
+                    else if (Model.Alias == null)
+                    {
+                        @Html.ActionLink(@Resources.LeaveAReviewButton, "Index", "Ratings/RateResearchCenter", new { centerId = Model.CenterId, alias = Model.Aliases.FirstOrDefault() }, null)
+                    }
+                    else
+                    {
+                        @Html.ActionLink(@Resources.LeaveAReviewButton, "Index", "Ratings/RateResearchCenter", new { centerId = Model.CenterId, alias = Model.Alias }, null)
+                        @*<a href="~/Ratings/RateResearchCenter?centerId=@Model.CenterId&alias=@Model.Alias">@Resources.LeaveAReviewButton</a>*@
+                    }
+                </div>
+                <div class="review-area">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="progress-area">
+                                @Html.Partial("_RatingsScoreCard", Model.ScoreCard)
+                            </div>
+                        </div>
+                        @if (Model.IsPublished)
+                        {
+                            <div class="col-xl-12 map">
+                                <div class="map-area">
+                                    <div class="ifrem-area">
+                                        <iframe title="Map Location" src='@("https://www.google.com/maps/embed/v1/place?key=AIzaSyCUlCL0ltFd0DcVn6eLtNOE3MVyFemXuhk&q="+Model.Address+", "+Model.City+" "+Model.State)' frameborder="0" style="border:0" allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+
+                           <div class="col-xl-12 trsc-ads-row vertical" id="Ads">
+                               </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@Html.Partial("_Footer")
+<div class="trsc-owl-chat">
+    <span id="hs-script-loader" name="hs-script-loader"></span>
+</div>
+
+<div class="modal fade" id="ratingModal" tabindex="-1" role="dialog" aria-labelledby="RatingModalTitle" aria-hidden="true" data-url="@Url.Action("GetAliasesByCenter","ResearchCenter", new { centerId = Model.CenterId })">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 style="font-weight:bold; color:black;" class="modal-title" id="ratingModalTitle">Please select a location to review</h5>
+                <button style="display:block !important;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div id="listContainer" class="alias-list">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="contactModal" tabindex="-1" data-url="@Url.Action("ContactUs", "ResearchSite", new { aliasId = Model.AliasId })">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header"></div>
+            <div class="modal-body">
+                <div id="contactContainer">
+                    <span class="contact-center">
+                        <img src="~/Content/images/ajax-loader2.gif" />
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="studyModal" tabindex="-1" data-url="@Url.Action("ContactUs", "Search", new { CenterId = Model.CenterId})">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header"></div>
+            <div class="modal-body">
+                <div id="studyContainer">
+                    <span class="contact-center">
+                        <img src="~/Content/images/ajax-loader2.gif" />
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="embedModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Embed This Score</h5>
+                <button style="display:block !important;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="inputEmbed">
+                    <p>Add this score to your website by copying the code below</p>
+                    <input id="embedInput" />
+                </div>
+
+                <div class="contact-btn" style="cursor:pointer;">
+                    <a id="copyButton">Copy Code</a>
+                </div>
+                <hr />
+                <br />
+                <h5>Preview</h5>
+                <div class="embed-preview">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/ResearchCenterDetails")
+}
+

@@ -1,0 +1,72 @@
+﻿@model TrialScout.Web.ViewModels.SearchTrialsViewModel
+@{
+
+    ViewBag.Title = !string.IsNullOrWhiteSpace(Model?.Condition) ? Model.Condition + " - " + Model.Location : "Search";
+    Layout = "~/Views/Shared/_LayoutSearch.cshtml";
+
+}
+
+<div class="">
+    <div class="container" id="resultList">
+        <nav aria-label="breadcrumb" style="padding: 5px 0px;">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="~/Home">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Search</li>
+            </ol>
+        </nav>
+        @if (!string.IsNullOrWhiteSpace(Model.Condition))
+        {
+            <h3 style="text-align:center;margin:60px 0;">
+                The following research centers are conducting clinical research on <br /> <span style="font-weight:bold">@Model.Condition</span> near<span style="font-weight:bold"> @Model.Location </span>
+            </h3>
+        }
+        else
+        {
+            <h3 style="text-align:center;margin:60px 0;">
+                Find the right research center for you 
+            </h3>
+        }
+
+
+        <form method="GET" action="/search">
+            <input type="hidden" id="rows" name="rows" value="10" />
+            @** @Html.HiddenFor(m => m.NctIds)*@
+            <div class="row" style="margin-bottom:30px;">
+                <div class="col-12 col-md-3">
+                    <label class="labelClass">City, State or Zip</label>
+                    @Html.TextBoxFor(model => model.Location, new { @class = "form-control", @id = "location", placeholder = "City, State or Zip", autocomplete = "off" })
+                </div>
+                <div class="col-12 col-md-3 twitter-typeahead" id="scrollable-dropdown-menu">
+                    <label class="labelClass">Medical Condition</label>
+                    @Html.TextBoxFor(model => model.Condition, new { @class = "form-control", @id = "Condition", placeholder = "Medical Condition", autocomplete = "off" })
+                </div>
+                <div class="col-12 col-md-3">
+                    <label class="labelClass">Distance (miles)</label>
+                    @Html.DropDownListFor(model => model.Proximity, new SelectList(Model.Proximities, "Key", "Value"), new { @id = "Proximity", @class = "form-control", placeholder = "Proximity" })
+                </div>
+                <div class="col-12 col-md-3 text-center">
+                    <input id="findTrialButton" type="submit" value="Search &raquo;" class="btn btn-primary" style="margin-top:30px;" />
+                </div>
+            </div>
+        </form>
+
+        <div id="premiumResults" class="col-12"></div>
+        @Html.HiddenFor(model => model.PageSize)
+        @Html.HiddenFor(model => model.Total)
+    </div>
+
+</div>
+
+<div class="container">
+    <div class="row" id="basicResultRow">
+        <div id="basicResults" class="col-12 col-md-9 col-lg-9 col-xl-9"></div>
+        <div class="col-12 col-md-3 col-lg-3 col-xl-3 trsc-ads-row vertical" id="Ads" style="display:none;">
+        </div>
+    </div>
+</div>
+@Html.Partial("_SearchResults", Model)
+
+<div class="col text-center">
+    <button class="btn btn-outline-primary trsc-load-more" id="loadMoreTrials">Load More</button>
+</div>
+

@@ -1,0 +1,60 @@
+﻿@model  TrialScout.Web.ViewModels.EditResearchCenterViewModel
+
+<div class="row">
+    <div class="col-6">
+        @Html.Label("Departments") @Html.Partial("_Help", "Select the relevant departments. These departments will be used in the meta tags and are added for search engine optimization.")
+    </div>
+    <div class="col-6">
+        <input type="checkbox" name="selectAllDepartments" id="selectAllDepartments" value="" />Select All
+    </div>
+</div>
+
+<div class="row">
+    @{ int countPerRow = Model.Departments.Count() / 3;}
+
+    <div class="col-4">
+        @foreach (TrialScout.DAL.Entities.Department department in Model.Departments.Take(countPerRow))
+        {
+            if (Model.ResearchCenterDepartments.Where(r => r.DepartmentId == department.DepartmentId).Count() > 0)
+            {
+                <div><input type="checkbox" name="departmentIds" value="@department.DepartmentId" class="departments" checked/> @department.DepartmentName</div>
+            }
+            else
+            {
+                <div><input type="checkbox" name="departmentIds" value="@department.DepartmentId" class="departments" /> @department.DepartmentName</div>
+            }
+        }
+    </div>
+    @if (Model.Departments.Count > 3)
+    {
+    <div class="col-4">
+        @foreach (TrialScout.DAL.Entities.Department department in Model.Departments.Skip(countPerRow).Take(countPerRow))
+        {
+            if (Model.ResearchCenterDepartments.Where(r => r.DepartmentId == department.DepartmentId).Count() > 0)
+            {
+                <div><input type="checkbox" name="departmentIds" value="@department.DepartmentId" class="departments" checked  /> @department.DepartmentName</div>
+            }
+            else
+            {
+                <div><input type="checkbox" name="departmentIds" value="@department.DepartmentId" class="departments" /> @department.DepartmentName</div>
+            }
+        }
+    </div>
+    }
+    @if (Model.Departments.Count > 3)
+    {
+    <div class="col-4">
+        @foreach (TrialScout.DAL.Entities.Department department in Model.Departments.Skip(countPerRow * 2))
+        {
+            if (Model.ResearchCenterDepartments.Where(r => r.DepartmentId == department.DepartmentId).Count() > 0)
+            {
+                <div><input type="checkbox" name="departmentIds" value="@department.DepartmentId" class="departments" checked /> @department.DepartmentName</div>
+            }
+            else
+            {
+                <div><input type="checkbox" name="departmentIds" value="@department.DepartmentId" class="departments" /> @department.DepartmentName</div>
+            }
+        }
+    </div>
+    }
+</div>
