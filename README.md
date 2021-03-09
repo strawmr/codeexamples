@@ -15,6 +15,8 @@ Languages used include:
    * Javascript
    * JQuery
    * Typescript
+   * PHP
+   * SCSS
 
 Frameworks used include:
    * Bootstrap
